@@ -50,7 +50,7 @@ const Header = () => {
           <Grid item xs={6} container justifyContent="center" alignItems="center">
             <AppRegistrationIcon sx={{ marginRight: 1 }} />
             <Typography variant="h6" component="div">
-              GreyTradesPro
+              GreyTradesPro11
             </Typography>
           </Grid>
           <Grid item xs={3} container justifyContent="flex-end" alignItems="center">
