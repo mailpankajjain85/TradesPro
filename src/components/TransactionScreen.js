@@ -15,7 +15,7 @@ import {
   
 } from "@mui/material";
 // Import menu icon
-import Header from "./Header";
+
 const TransactionScreen = () => {
   
   // State to manage form inputs
@@ -55,7 +55,6 @@ const TransactionScreen = () => {
 
   return (
     <div>
-      <Header />
       
       {/* Transaction Form and Table */}
       <Container style={{ marginTop: "20px" }}>
