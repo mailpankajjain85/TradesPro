@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "//mailpankajjain85.github.io/TradesPro/static/css/main.e6c13ad2.css",
-    "main.js": "//mailpankajjain85.github.io/TradesPro/static/js/main.cf9983ac.js",
+    "main.js": "//mailpankajjain85.github.io/TradesPro/static/js/main.74733733.js",
     "static/js/488.211d9619.chunk.js": "//mailpankajjain85.github.io/TradesPro/static/js/488.211d9619.chunk.js",
     "index.html": "//mailpankajjain85.github.io/TradesPro/index.html",
     "main.e6c13ad2.css.map": "//mailpankajjain85.github.io/TradesPro/static/css/main.e6c13ad2.css.map",
-    "main.cf9983ac.js.map": "//mailpankajjain85.github.io/TradesPro/static/js/main.cf9983ac.js.map",
+    "main.74733733.js.map": "//mailpankajjain85.github.io/TradesPro/static/js/main.74733733.js.map",
     "488.211d9619.chunk.js.map": "//mailpankajjain85.github.io/TradesPro/static/js/488.211d9619.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.cf9983ac.js"
+    "static/js/main.74733733.js"
   ]
 }
