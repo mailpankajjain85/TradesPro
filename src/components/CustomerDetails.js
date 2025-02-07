@@ -3,7 +3,7 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, I
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Header from "./Header";
+
 
 const initialRows = [
   { id: 1, name: 'John Doe', phoneNumber: '123-456-7890' },
@@ -72,7 +72,7 @@ const CustomerDetails = () => {
 
   return (
     <>
-      <Header />
+      
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} />
       </div>

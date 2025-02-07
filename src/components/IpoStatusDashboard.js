@@ -9,7 +9,7 @@ import {
   TableCell,
   TableRow,
 } from "@mui/material";
-import Header from "./Header"; 
+
 const IpoStatusDashboard = () => {
   // Sample IPO data
   const ipos = [
@@ -38,7 +38,7 @@ const IpoStatusDashboard = () => {
 
   return (
     <div>
-        <Header />
+   
     <Container style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
         IPO Status Dashboard

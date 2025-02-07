@@ -10,7 +10,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import Header from "./Header"; 
 const IpoDetails = () => {
   // Sample IPO data
   const ipos = [
@@ -21,8 +20,7 @@ const IpoDetails = () => {
 
   return (
     <div>
-      <Header />
-    <Container style={{ marginTop: "20px" }}>
+      <Container style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
         IPO Details
       </Typography>

@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import Header from "./Header"; 
 const Dashboard = () => {
   // Sample data for the chart
   const data = [
@@ -21,8 +20,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Header/>
-    <Container style={{ marginTop: "20px" }}>
+      <Container style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
         Dashboard
       </Typography>
