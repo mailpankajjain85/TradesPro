@@ -14,7 +14,6 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
-import Header from "./Header";
 
 const initialTransactions = [
   {
@@ -99,7 +98,6 @@ const AllTransactions = () => {
 
   return (
     <div>
-      <Header />
       <Container style={{ marginTop: "20px" }}>
         <Typography variant="h4" gutterBottom>
           All Transactions

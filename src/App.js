@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import TransactionScreen from "./components/TransactionScreen";
 import CustomerDetails from "./components/CustomerDetails";
 import IpoDetails from "./components/IpoDetails";
 import Dashboard from "./components/Dashboard";
 import AllTransactions from "./components/AllTransactions";
 import IpoStatusDashboard from "./components/IpoStatusDashboard";
-import LoginPage from "./components/LoginPage"; // Import the LoginPage
-import Header from "./components/Header"; // Import the Header
+import LoginPage from "./components/LoginPage";
+import Header from "./components/Header";
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null); // State to store the logged-in user
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   return (
     <Router>
-      {/* Include the Header component and pass the loggedInUser */}
-      
+      {loggedInUser && <Header loggedInUser={loggedInUser} />}
       <Routes>
-        {/* Show LoginPage if no user is logged in */}
         {!loggedInUser && (
           <Route
             path="/"
             element={<LoginPage setLoggedInUser={setLoggedInUser} />}
           />
         )}
-        {/* Protected routes */}
         {loggedInUser && (
           <>
             <Route path="/" element={<TransactionScreen />} />
