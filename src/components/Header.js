@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Menu, MenuItem, ListItemIcon, Typography, Box, Avatar, IconButton, Grid2, Tooltip, Divider, useMediaQuery } from '@mui/material';
+import { AppBar, Toolbar, Menu, MenuItem, ListItemIcon, Typography, Box, Avatar, IconButton, Grid, Tooltip, Divider, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -43,22 +43,22 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid2 container alignItems="center">
-          <Grid2 item xs={isSmallScreen ? 6 : 3} container alignItems="center">
+        <Grid container alignItems="center">
+          <Grid item xs={isSmallScreen ? 6 : 3} container alignItems="center">
             <BusinessIcon sx={{ marginRight: 1 }} />
             <Typography variant="h6" component="div">
               Vardhman
             </Typography>
-          </Grid2>
+          </Grid>
           {!isSmallScreen && (
-            <Grid2 item xs={6} container justifyContent="center" alignItems="center">
+            <Grid item xs={6} container justifyContent="center" alignItems="center">
               <AppRegistrationIcon sx={{ marginRight: 1 }} />
               <Typography variant="h6" component="div">
                 IPOTradesPro
               </Typography>
-            </Grid2>
+            </Grid>
           )}
-          <Grid2 item xs={isSmallScreen ? 6 : 3} container justifyContent="flex-end" alignItems="center">
+          <Grid item xs={isSmallScreen ? 6 : 3} container justifyContent="flex-end" alignItems="center">
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Tooltip title="Pankaj">
                 <Avatar alt="Pankaj" src="/static/images/avatar/1.jpg" sx={{ marginRight: 1 }} />
@@ -72,8 +72,8 @@ const Header = () => {
                 <MenuIcon />
               </IconButton>
             </Box>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}

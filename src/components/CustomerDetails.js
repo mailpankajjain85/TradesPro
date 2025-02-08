@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid2, Container } from '@mui/material';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid, Container } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -81,8 +81,8 @@ const CustomerDetails = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
         <DialogContent>
-          <Grid2 container spacing={2}>
-            <Grid2 item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
               <TextField
                 autoFocus
                 margin="dense"
@@ -92,8 +92,8 @@ const CustomerDetails = () => {
                 value={newUser.name}
                 onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
               />
-            </Grid2>
-            <Grid2 item xs={12}>
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 margin="dense"
                 label="Phone Number"
@@ -102,8 +102,8 @@ const CustomerDetails = () => {
                 value={newUser.phoneNumber}
                 onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
               />
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

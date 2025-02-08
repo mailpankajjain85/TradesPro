@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Grid2 } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import TransactionScreen from "./components/TransactionScreen";
 import CustomerDetails from "./components/CustomerDetails";
 import IpoDetails from "./components/IpoDetails";
@@ -19,8 +19,8 @@ function App() {
       {loggedInUser && <Header loggedInUser={loggedInUser} />}
       <Container>
         <ResponsiveComponent />
-        <Grid2 container spacing={2}>
-          <Grid2 item xs={12}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
             <Routes>
               {!loggedInUser && (
                 <Route
@@ -42,8 +42,8 @@ function App() {
                 </>
               )}
             </Routes>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Container>
     </Router>
   );

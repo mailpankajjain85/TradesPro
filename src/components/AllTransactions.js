@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Grid2,
+  Grid,
   TextField,
   Button,
   MenuItem,
@@ -104,8 +104,8 @@ const AllTransactions = () => {
         </Typography>
 
         {/* Filter Section */}
-        <Grid2 container spacing={2} style={{ marginBottom: 16 }}>
-          <Grid2 item xs={12} sm={6} md={2}>
+        <Grid container spacing={2} style={{ marginBottom: 16 }}>
+          <Grid item xs={12} sm={6} md={2}>
             <TextField
               label="IPO Name"
               name="ipoName"
@@ -122,8 +122,8 @@ const AllTransactions = () => {
                 </MenuItem>
               ))}
             </TextField>
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={2}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
             <TextField
               label="Trade Type"
               name="tradeType"
@@ -137,8 +137,8 @@ const AllTransactions = () => {
               <MenuItem value="Buy">Buy</MenuItem>
               <MenuItem value="Sell">Sell</MenuItem>
             </TextField>
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={2}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
             <TextField
               label="Price Min"
               name="priceMin"
@@ -148,8 +148,8 @@ const AllTransactions = () => {
               fullWidth
               size="small"
             />
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={2}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
             <TextField
               label="Price Max"
               name="priceMax"
@@ -159,8 +159,8 @@ const AllTransactions = () => {
               fullWidth
               size="small"
             />
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={2}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
             <TextField
               label="Customer Name"
               name="customerName"
@@ -177,18 +177,18 @@ const AllTransactions = () => {
                 </MenuItem>
               ))}
             </TextField>
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={1}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={1}>
             <Button variant="contained" color="primary" onClick={applyFilters} fullWidth size="small">
               Apply
             </Button>
-          </Grid2>
-          <Grid2 item xs={12} sm={6} md={1}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={1}>
             <Button variant="contained" color="secondary" onClick={clearFilters} fullWidth size="small">
               Clear
             </Button>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
 
         {/* Transactions Table */}
         <TableContainer component={Paper}>
