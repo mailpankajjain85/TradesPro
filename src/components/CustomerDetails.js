@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid2, Container } from '@mui/material';
-import { DataGrid2 } from '@mui/x-data-Grid2';
+import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -73,7 +73,7 @@ const CustomerDetails = () => {
   return (
     <Container>
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid2 rows={rows} columns={columns} pageSize={5} />
+        <DataGrid rows={rows} columns={columns} pageSize={5} />
       </div>
       <Button variant="contained" color="primary" onClick={handleAddClick} style={{ marginTop: 16 }}>
         Add User
