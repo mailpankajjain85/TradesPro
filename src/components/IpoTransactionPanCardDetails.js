@@ -32,6 +32,7 @@ const IpoTransactionPanCardDetails = () => {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [selectedIpoName, setSelectedIpoName] = useState('');
   const [selectedClientName, setSelectedClientName] = useState('');
+  const [selectedPanCardUpdated, setSelectedPanCardUpdated] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
@@ -74,11 +75,65 @@ const IpoTransactionPanCardDetails = () => {
     handleDownloadClose();
   };
 
+  const filteredData = data.filter(
+    (row) =>
+      (selectedIpoName ? row.ipoName === selectedIpoName : true) &&
+      (selectedClientName ? row.clientName === selectedClientName : true) &&
+      (selectedPanCardUpdated ? row.panCardUpdated === selectedPanCardUpdated : true)
+  );
+
   return (
     <Container style={{ marginTop: '20px' }}>
       <Typography variant="h4" gutterBottom>
         IPO Transaction Pan Card Details
       </Typography>
+      <Grid container spacing={2} style={{ marginBottom: '10px' }}>
+        <Grid item xs={12} sm={4}>
+          <TextField
+            label="IPO Name"
+            value={selectedIpoName}
+            onChange={(e) => setSelectedIpoName(e.target.value)}
+            select
+            fullWidth
+          >
+            <MenuItem value="">All</MenuItem>
+            {initialData.map((ipo) => (
+              <MenuItem key={ipo.id} value={ipo.ipoName}>
+                {ipo.ipoName}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <TextField
+            label="Client Name"
+            value={selectedClientName}
+            onChange={(e) => setSelectedClientName(e.target.value)}
+            select
+            fullWidth
+          >
+            <MenuItem value="">All</MenuItem>
+            {initialData.map((client) => (
+              <MenuItem key={client.id} value={client.clientName}>
+                {client.clientName}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <TextField
+            label="Pan Card Details Updated?"
+            value={selectedPanCardUpdated}
+            onChange={(e) => setSelectedPanCardUpdated(e.target.value)}
+            select
+            fullWidth
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Yes">Yes</MenuItem>
+            <MenuItem value="No">No</MenuItem>
+          </TextField>
+        </Grid>
+      </Grid>
       <Button variant="contained" color="primary" onClick={handleDownloadOpen} style={{ float: 'right', marginBottom: '10px' }}>
         Download
       </Button>
@@ -95,7 +150,7 @@ const IpoTransactionPanCardDetails = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {filteredData.map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.ipoName}</TableCell>
                 <TableCell>{row.clientName}</TableCell>
