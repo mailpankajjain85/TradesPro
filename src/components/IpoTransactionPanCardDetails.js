@@ -156,7 +156,9 @@ const IpoTransactionPanCardDetails = () => {
                 <TableCell>{row.clientName}</TableCell>
                 <TableCell>{row.saudaType}</TableCell>
                 <TableCell>{row.quantity}</TableCell>
-                <TableCell>{row.panCardUpdated}</TableCell>
+                <TableCell style={{ color: row.panCardUpdated === 'Yes' ? 'green' : 'red' }}>
+                  {row.panCardUpdated}
+                </TableCell>
                 <TableCell>
                   <Button variant="contained" color="primary" onClick={handleOpen}>
                     {row.panCardUpdated === 'Yes' ? 'Edit' : 'Update'}

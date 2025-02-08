@@ -110,6 +110,12 @@ const Header = () => {
             </ListItemIcon>
             Ipo Transaction Pan Card Details
           </MenuItem>
+          <MenuItem onClick={() => handleNavigation("/ipo-transaction-allotment-details")}>
+            <ListItemIcon>
+              <ListAltIcon />
+            </ListItemIcon>
+            Ipo Transaction Allotment Details
+          </MenuItem>
           <Divider />
           <MenuItem onClick={handleSubmenuClick}>
             <ListItemIcon>

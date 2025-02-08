@@ -9,7 +9,8 @@ import AllTransactions from "./components/AllTransactions";
 import IpoStatusDashboard from "./components/IpoStatusDashboard";
 import LoginPage from "./components/LoginPage";
 import Header from "./components/Header";
-import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails"; // Import the new component
+import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails"; 
+import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails"; // Import the new component
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -36,6 +37,7 @@ function App() {
                   <Route path="/all-transactions" element={<AllTransactions />} />
                   <Route path="/ipo-status-dashboard" element={<IpoStatusDashboard />} />
                   <Route path="/ipo-transaction-pan-card-details" element={<IpoTransactionPanCardDetails />} />
+                  <Route path="/ipo-transaction-allotment-details" element={<IpoTransactionAllotmentDetails />} />
                 </>
               )}
             </Routes>
