@@ -8,9 +8,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Grid,
-} from "@mui/material";
+  Paper
+  } from "@mui/material";
 
 const IpoDetails = () => {
   // Sample IPO data
