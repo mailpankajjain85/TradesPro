@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, TextField, Button, Typography, Paper } from "@mui/material";
+import { Container, TextField, Button, Typography, Paper, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ setLoggedInUser }) => {
@@ -29,40 +29,44 @@ const LoginPage = ({ setLoggedInUser }) => {
         height: "100vh",
       }}
     >
-      <Paper style={{ padding: 16, maxWidth: 400, width: "100%" }}>
-        <Typography variant="h5" gutterBottom>
-          Login
-        </Typography>
-        {error && (
-          <Typography color="error" gutterBottom>
-            {error}
-          </Typography>
-        )}
-        <TextField
-          label="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleLogin}
-          fullWidth
-          style={{ marginTop: 16 }}
-        >
-          Login
-        </Button>
-      </Paper>
+      <Grid container justifyContent="center">
+        <Grid item xs={12} sm={8} md={6} lg={4}>
+          <Paper style={{ padding: 16, width: "100%" }}>
+            <Typography variant="h5" gutterBottom>
+              Login
+            </Typography>
+            {error && (
+              <Typography color="error" gutterBottom>
+                {error}
+              </Typography>
+            )}
+            <TextField
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLogin}
+              fullWidth
+              style={{ marginTop: 16 }}
+            >
+              Login
+            </Button>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

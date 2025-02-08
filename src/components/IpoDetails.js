@@ -9,7 +9,9 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Grid,
 } from "@mui/material";
+
 const IpoDetails = () => {
   // Sample IPO data
   const ipos = [
@@ -21,34 +23,34 @@ const IpoDetails = () => {
   return (
     <div>
       <Container style={{ marginTop: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        IPO Details
-      </Typography>
+        <Typography variant="h4" gutterBottom>
+          IPO Details
+        </Typography>
 
-      {/* IPO Table */}
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Issue Price</TableCell>
-              <TableCell>Lot Size</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {ipos.map((ipo) => (
-              <TableRow key={ipo.id}>
-                <TableCell>{ipo.id}</TableCell>
-                <TableCell>{ipo.name}</TableCell>
-                <TableCell>{ipo.issuePrice}</TableCell>
-                <TableCell>{ipo.lotSize}</TableCell>
+        {/* IPO Table */}
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Issue Price</TableCell>
+                <TableCell>Lot Size</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+            </TableHead>
+            <TableBody>
+              {ipos.map((ipo) => (
+                <TableRow key={ipo.id}>
+                  <TableCell>{ipo.id}</TableCell>
+                  <TableCell>{ipo.name}</TableCell>
+                  <TableCell>{ipo.issuePrice}</TableCell>
+                  <TableCell>{ipo.lotSize}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     </div>
   );
 };

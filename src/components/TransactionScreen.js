@@ -11,13 +11,11 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Grid2
-  
+  Grid,
+  MenuItem,
 } from "@mui/material";
-// Import menu icon
 
 const TransactionScreen = () => {
-  
   // State to manage form inputs
   const [transaction, setTransaction] = useState({
     customerName: "Pankaj", // Default customer name
@@ -55,14 +53,13 @@ const TransactionScreen = () => {
 
   return (
     <div>
-      
       {/* Transaction Form and Table */}
       <Container style={{ marginTop: "20px" }}>
         {/* Transaction Form */}
         <form onSubmit={handleSubmit}>
-          <Grid2 container spacing={2}>
+          <Grid container spacing={2}>
             {/* Customer Name */}
-            <Grid2 item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 label="Customer Name"
                 name="customerName"
@@ -72,15 +69,15 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               >
-                <option value="Pankaj">Pankaj</option>
-                <option value="Piyush">Piyush</option>
-                <option value="Tanish">Tanish</option>
-                <option value="Samyak">Samyak</option>
+                <MenuItem value="Pankaj">Pankaj</MenuItem>
+                <MenuItem value="Piyush">Piyush</MenuItem>
+                <MenuItem value="Tanish">Tanish</MenuItem>
+                <MenuItem value="Samyak">Samyak</MenuItem>
               </TextField>
-            </Grid2>
+            </Grid>
 
             {/* IPO Name */}
-            <Grid2 item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 label="IPO Name"
                 name="ipoName"
@@ -90,14 +87,14 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               >
-                <option value="Sanathan">Sanathan</option>
-                <option value="Transrail">Transrail</option>
-                <option value="Afcon">Afcon</option>
+                <MenuItem value="Sanathan">Sanathan</MenuItem>
+                <MenuItem value="Transrail">Transrail</MenuItem>
+                <MenuItem value="Afcon">Afcon</MenuItem>
               </TextField>
-            </Grid2>
+            </Grid>
 
             {/* Buy/Sell */}
-            <Grid2 item xs={12} sm={6} md={2}>
+            <Grid item xs={12} sm={6} md={2}>
               <TextField
                 label="Buy/Sell"
                 name="buySell"
@@ -107,13 +104,13 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               >
-                <option value="Buy">Buy</option>
-                <option value="Sell">Sell</option>
+                <MenuItem value="Buy">Buy</MenuItem>
+                <MenuItem value="Sell">Sell</MenuItem>
               </TextField>
-            </Grid2>
+            </Grid>
 
             {/* Trade Type */}
-            <Grid2 item xs={12} sm={6} md={2}>
+            <Grid item xs={12} sm={6} md={2}>
               <TextField
                 label="Trade Type"
                 name="tradeType"
@@ -123,14 +120,14 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               >
-                <option value="Shares">Shares</option>
-                <option value="SubjectTo">SubjectTo</option>
-                <option value="Application">Application</option>
+                <MenuItem value="Shares">Shares</MenuItem>
+                <MenuItem value="SubjectTo">SubjectTo</MenuItem>
+                <MenuItem value="Application">Application</MenuItem>
               </TextField>
-            </Grid2>
+            </Grid>
 
             {/* Quantity */}
-            <Grid2 item xs={12} sm={6} md={1}>
+            <Grid item xs={12} sm={6} md={1}>
               <TextField
                 label="Quantity"
                 name="quantity"
@@ -140,10 +137,10 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               />
-            </Grid2>
+            </Grid>
 
             {/* Price */}
-            <Grid2 item xs={12} sm={6} md={1}>
+            <Grid item xs={12} sm={6} md={1}>
               <TextField
                 label="Price"
                 name="price"
@@ -153,15 +150,15 @@ const TransactionScreen = () => {
                 fullWidth
                 required
               />
-            </Grid2>
+            </Grid>
 
             {/* Submit Button */}
-            <Grid2 item xs={12} sm={6} md={2}>
+            <Grid item xs={12} sm={6} md={2}>
               <Button type="submit" variant="contained" color="primary" fullWidth>
                 Add Transaction
               </Button>
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
         </form>
 
         {/* Transaction Table */}

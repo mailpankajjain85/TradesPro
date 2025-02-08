@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid2, Container } from '@mui/material';
+import { DataGrid2 } from '@mui/x-data-Grid2';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 const initialRows = [
-  { id: 1, name: 'John Doe', phoneNumber: '123-456-7890' },
-  { id: 2, name: 'Jane Smith', phoneNumber: '987-654-3210' },
+  { id: 1, name: 'Pankaj Jain', phoneNumber: '123-456-7890' },
+  { id: 2, name: 'Tanish Jain', phoneNumber: '987-654-3210' },
+  { id: 3, name: 'Samyak Jain', phoneNumber: '987-654-3210' },
 ];
 
 const CustomerDetails = () => {
@@ -71,10 +71,9 @@ const CustomerDetails = () => {
   ];
 
   return (
-    <>
-      
+    <Container>
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} pageSize={5} />
+        <DataGrid2 rows={rows} columns={columns} pageSize={5} />
       </div>
       <Button variant="contained" color="primary" onClick={handleAddClick} style={{ marginTop: 16 }}>
         Add User
@@ -82,23 +81,29 @@ const CustomerDetails = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Name"
-            type="text"
-            fullWidth
-            value={newUser.name}
-            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Phone Number"
-            type="text"
-            fullWidth
-            value={newUser.phoneNumber}
-            onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
-          />
+          <Grid2 container spacing={2}>
+            <Grid2 item xs={12}>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Name"
+                type="text"
+                fullWidth
+                value={newUser.name}
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+              />
+            </Grid2>
+            <Grid2 item xs={12}>
+              <TextField
+                margin="dense"
+                label="Phone Number"
+                type="text"
+                fullWidth
+                value={newUser.phoneNumber}
+                onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
+              />
+            </Grid2>
+          </Grid2>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -109,7 +114,7 @@ const CustomerDetails = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Container>
   );
 };
 
