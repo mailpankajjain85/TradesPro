@@ -24,7 +24,6 @@ const initialData = [
 ];
 
 const IpoTransactionPanCardDetails = () => {
-  const [data, setData] = useState(initialData);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
