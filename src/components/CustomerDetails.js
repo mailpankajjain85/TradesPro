@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid, Container } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid, Container, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -50,34 +49,41 @@ const CustomerDetails = () => {
     setRows(rows.filter(row => row.id !== id));
   };
 
-  const columns = [
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'phoneNumber', headerName: 'Phone Number', width: 200 },
-    {
-      field: 'actions',
-      headerName: 'Actions',
-      width: 150,
-      renderCell: (params) => (
-        <>
-          <IconButton onClick={() => handleEditClick(params.row)}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={() => handleDelete(params.row.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
-      ),
-    },
-  ];
-
   return (
-    <Container>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} pageSize={5} />
-      </div>
-      <Button variant="contained" color="primary" onClick={handleAddClick} style={{ marginTop: 16 }}>
+    <Container style={{ marginTop: "20px" }}>
+      <Typography variant="h4" gutterBottom>
+        Customer Details
+      </Typography>
+      <Button variant="contained" color="primary" onClick={handleAddClick} style={{ marginBottom: 16 }}>
         Add User
       </Button>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Phone Number</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.phoneNumber}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleEditClick(row)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(row.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
         <DialogContent>

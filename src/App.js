@@ -9,7 +9,6 @@ import AllTransactions from "./components/AllTransactions";
 import IpoStatusDashboard from "./components/IpoStatusDashboard";
 import LoginPage from "./components/LoginPage";
 import Header from "./components/Header";
-import ResponsiveComponent from "./components/ResponsiveComponent";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -18,7 +17,6 @@ function App() {
     <Router>
       {loggedInUser && <Header loggedInUser={loggedInUser} />}
       <Container>
-        <ResponsiveComponent />
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Routes>
