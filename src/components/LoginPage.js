@@ -10,7 +10,7 @@ const LoginPage = ({ setLoggedInUser }) => {
 
   const handleLogin = () => {
     // Hardcoded users and passwords
-    const users = ["Tanish", "Pankaj", "Piyush", "Samyak"];
+    const users = ["Tanish123", "Pankaj123", "Piyush123", "Samyak123"];
     if (users.includes(username) && password === username) {
       setLoggedInUser(username); // Set the logged-in user
       navigate("/"); // Redirect to the home page
