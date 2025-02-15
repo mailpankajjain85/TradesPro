@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
 import TransactionScreen from "./components/TransactionScreen";
 import CustomerDetails from "./components/CustomerDetails";
@@ -7,10 +7,11 @@ import IpoDetails from "./components/IpoDetails";
 import Dashboard from "./components/Dashboard";
 import AllTransactions from "./components/AllTransactions";
 import IpoStatusDashboard from "./components/IpoStatusDashboard";
-import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails";
-import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails";
-import IpoDetailDashboard from "./components/IpoDetailDashboard"; // Import the new component
+import LoginPage from "./components/LoginPage";
 import Header from "./components/Header";
+import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails"; 
+import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails"; // Import the new component
+import IpoDetailDashboard from "./components/IpoDetailDashboard";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
