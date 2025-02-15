@@ -9,7 +9,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BusinessIcon from '@mui/icons-material/Business';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import logo from '../static/logo/parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
@@ -52,7 +52,7 @@ const Header = () => {
           </Grid>
           {!isSmallScreen && (
             <Grid item xs={6} container justifyContent="center" alignItems="center">
-              <AppRegistrationIcon sx={{ marginRight: 1 }} />
+             <img src={logo} alt="IPO Trades PRO" style={{ height: 40, marginRight: 8 }} />
               <Typography variant="h6" component="div">
                 IPOTradesPro
               </Typography>
