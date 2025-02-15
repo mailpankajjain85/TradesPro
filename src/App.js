@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
 import TransactionScreen from "./components/TransactionScreen";
 import CustomerDetails from "./components/CustomerDetails";
@@ -7,10 +7,10 @@ import IpoDetails from "./components/IpoDetails";
 import Dashboard from "./components/Dashboard";
 import AllTransactions from "./components/AllTransactions";
 import IpoStatusDashboard from "./components/IpoStatusDashboard";
-import LoginPage from "./components/LoginPage";
+import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails";
+import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails";
+import IpoDetailDashboard from "./components/IpoDetailDashboard"; // Import the new component
 import Header from "./components/Header";
-import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails"; 
-import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails"; // Import the new component
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -38,6 +38,7 @@ function App() {
                   <Route path="/ipo-status-dashboard" element={<IpoStatusDashboard />} />
                   <Route path="/ipo-transaction-pan-card-details" element={<IpoTransactionPanCardDetails />} />
                   <Route path="/ipo-transaction-allotment-details" element={<IpoTransactionAllotmentDetails />} />
+                  <Route path="/ipo-detail-dashboard" element={<IpoDetailDashboard />} /> {/* Add the new route */}
                 </>
               )}
             </Routes>
