@@ -9,7 +9,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BusinessIcon from '@mui/icons-material/Business';
-import logo from '../static/logo/parthlogo.jpeg';
+import logo from '../parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {

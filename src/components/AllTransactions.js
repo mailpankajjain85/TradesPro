@@ -21,6 +21,8 @@ const initialTransactions = [
     customerName: "Pankaj",
     ipoName: "Sanathan",
     tradeType: "Buy",
+    saudaType: "Shares",
+    saudaDate: "2023-01-01",
     quantity: 10,
     price: 100,
   },
@@ -29,6 +31,8 @@ const initialTransactions = [
     customerName: "Piyush",
     ipoName: "Transrail",
     tradeType: "Sell",
+    saudaType: "Subject To",
+    saudaDate: "2023-01-02",
     quantity: 5,
     price: 150,
   },
@@ -37,6 +41,8 @@ const initialTransactions = [
     customerName: "Tanish",
     ipoName: "Afcon",
     tradeType: "Buy",
+    saudaType: "Applications",
+    saudaDate: "2023-01-03",
     quantity: 8,
     price: 200,
   },
@@ -47,6 +53,8 @@ const AllTransactions = () => {
   const [filters, setFilters] = useState({
     ipoName: '',
     tradeType: '',
+    saudaType: '',
+    saudaDate: '',
     priceMin: '',
     priceMax: '',
     customerName: '',
@@ -69,6 +77,12 @@ const AllTransactions = () => {
     if (filters.tradeType) {
       filteredTransactions = filteredTransactions.filter(transaction => transaction.tradeType === filters.tradeType);
     }
+    if (filters.saudaType) {
+      filteredTransactions = filteredTransactions.filter(transaction => transaction.saudaType === filters.saudaType);
+    }
+    if (filters.saudaDate) {
+      filteredTransactions = filteredTransactions.filter(transaction => transaction.saudaDate === filters.saudaDate);
+    }
     if (filters.priceMin) {
       filteredTransactions = filteredTransactions.filter(transaction => transaction.price >= parseFloat(filters.priceMin));
     }
@@ -86,6 +100,8 @@ const AllTransactions = () => {
     setFilters({
       ipoName: '',
       tradeType: '',
+      saudaType: '',
+      saudaDate: '',
       priceMin: '',
       priceMax: '',
       customerName: '',
@@ -137,6 +153,36 @@ const AllTransactions = () => {
               <MenuItem value="Buy">Buy</MenuItem>
               <MenuItem value="Sell">Sell</MenuItem>
             </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <TextField
+              label="Sauda Type"
+              name="saudaType"
+              value={filters.saudaType}
+              onChange={handleFilterChange}
+              select
+              fullWidth
+              size="small"
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Shares">Shares</MenuItem>
+              <MenuItem value="Subject To">Subject To</MenuItem>
+              <MenuItem value="Applications">Applications</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <TextField
+              label="Sauda Date"
+              name="saudaDate"
+              value={filters.saudaDate}
+              onChange={handleFilterChange}
+              type="date"
+              fullWidth
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
             <TextField
@@ -195,23 +241,25 @@ const AllTransactions = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Customer Name</TableCell>
                 <TableCell>IPO Name</TableCell>
-                <TableCell>Trade Type</TableCell>
-                <TableCell>Quantity</TableCell>
+                <TableCell>Client Name</TableCell>
+                <TableCell>Sauda Type</TableCell>
+                <TableCell>Sauda Date</TableCell>
                 <TableCell>Price</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Trade Type</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {transactions.map((transaction) => (
                 <TableRow key={transaction.id}>
-                  <TableCell>{transaction.id}</TableCell>
-                  <TableCell>{transaction.customerName}</TableCell>
                   <TableCell>{transaction.ipoName}</TableCell>
-                  <TableCell>{transaction.tradeType}</TableCell>
-                  <TableCell>{transaction.quantity}</TableCell>
+                  <TableCell>{transaction.customerName}</TableCell>
+                  <TableCell>{transaction.saudaType}</TableCell>
+                  <TableCell>{transaction.saudaDate}</TableCell>
                   <TableCell>{transaction.price}</TableCell>
+                  <TableCell>{transaction.quantity}</TableCell>
+                  <TableCell>{transaction.tradeType}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
