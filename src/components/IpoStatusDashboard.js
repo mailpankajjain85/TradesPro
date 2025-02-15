@@ -16,23 +16,35 @@ const IpoStatusDashboard = () => {
     {
       id: 1,
       name: "Sanathan",
+      profit: 5000, // Total profit booked so far
       shares: 150, // Open positions for Shares (positive or negative)
+      averagePriceShares: 120, // Average price for Shares
       application: { retail: 200, smallHni: 100, bigHni: 50 }, // Application breakdown
+      averagePriceApplication: { retail: 110, smallHni: 115, bigHni: 118 }, // Average price for Application
       subjectToSauda: { retail: 150, smallHni: 75, bigHni: 30 }, // Subject to Sauda breakdown
+      averagePriceSubjectToSauda: { retail: 105, smallHni: 108, bigHni: 110 }, // Average price for Subject to Sauda
     },
     {
       id: 2,
       name: "Transrail",
+      profit: 3000, // Total profit booked so far
       shares: -80, // Negative open positions for Shares
+      averagePriceShares: 115, // Average price for Shares
       application: { retail: 180, smallHni: 90, bigHni: 40 },
+      averagePriceApplication: { retail: 112, smallHni: 117, bigHni: 120 },
       subjectToSauda: { retail: 130, smallHni: 65, bigHni: 35 },
+      averagePriceSubjectToSauda: { retail: 107, smallHni: 110, bigHni: 113 },
     },
     {
       id: 3,
       name: "Afcon",
+      profit: 7000, // Total profit booked so far
       shares: 200, // Positive open positions for Shares
+      averagePriceShares: 125, // Average price for Shares
       application: { retail: 150, smallHni: 70, bigHni: 30 },
+      averagePriceApplication: { retail: 115, smallHni: 118, bigHni: 122 },
       subjectToSauda: { retail: 100, smallHni: 50, bigHni: 20 },
+      averagePriceSubjectToSauda: { retail: 110, smallHni: 112, bigHni: 115 },
     },
   ];
 
@@ -52,6 +64,11 @@ const IpoStatusDashboard = () => {
                   {ipo.name}
                 </Typography>
 
+                {/* Profit */}
+                <Typography variant="body1" gutterBottom>
+                  Total Profit Booked: {ipo.profit}
+                </Typography>
+
                 {/* Shares */}
                 <Typography variant="subtitle1" gutterBottom>
                   Shares
@@ -65,6 +82,9 @@ const IpoStatusDashboard = () => {
                 >
                   Open Positions: {ipo.shares}
                 </Typography>
+                <Typography variant="body2">
+                  Average Price: {ipo.averagePriceShares}
+                </Typography>
 
                 {/* Application */}
                 <Typography variant="subtitle1" gutterBottom style={{ marginTop: "10px" }}>
@@ -75,14 +95,17 @@ const IpoStatusDashboard = () => {
                     <TableRow>
                       <TableCell>Retail</TableCell>
                       <TableCell>{ipo.application.retail}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceApplication.retail}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Small HNI</TableCell>
                       <TableCell>{ipo.application.smallHni}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceApplication.smallHni}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Big HNI</TableCell>
                       <TableCell>{ipo.application.bigHni}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceApplication.bigHni}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -96,14 +119,17 @@ const IpoStatusDashboard = () => {
                     <TableRow>
                       <TableCell>Retail</TableCell>
                       <TableCell>{ipo.subjectToSauda.retail}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceSubjectToSauda.retail}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Small HNI</TableCell>
                       <TableCell>{ipo.subjectToSauda.smallHni}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceSubjectToSauda.smallHni}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Big HNI</TableCell>
                       <TableCell>{ipo.subjectToSauda.bigHni}</TableCell>
+                      <TableCell>Avg Price: {ipo.averagePriceSubjectToSauda.bigHni}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
