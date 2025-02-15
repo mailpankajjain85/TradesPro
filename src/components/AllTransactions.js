@@ -22,6 +22,7 @@ const initialTransactions = [
     ipoName: "Sanathan",
     tradeType: "Buy",
     saudaType: "Shares",
+    applicationType: "",
     saudaDate: "2023-01-01",
     quantity: 10,
     price: 100,
@@ -32,6 +33,7 @@ const initialTransactions = [
     ipoName: "Transrail",
     tradeType: "Sell",
     saudaType: "Subject To",
+    applicationType: "bhni",
     saudaDate: "2023-01-02",
     quantity: 5,
     price: 150,
@@ -42,6 +44,7 @@ const initialTransactions = [
     ipoName: "Afcon",
     tradeType: "Buy",
     saudaType: "Applications",
+    applicationType: "shni",
     saudaDate: "2023-01-03",
     quantity: 8,
     price: 200,
@@ -55,8 +58,6 @@ const AllTransactions = () => {
     tradeType: '',
     saudaType: '',
     saudaDate: '',
-    priceMin: '',
-    priceMax: '',
     customerName: '',
   });
 
@@ -83,12 +84,6 @@ const AllTransactions = () => {
     if (filters.saudaDate) {
       filteredTransactions = filteredTransactions.filter(transaction => transaction.saudaDate === filters.saudaDate);
     }
-    if (filters.priceMin) {
-      filteredTransactions = filteredTransactions.filter(transaction => transaction.price >= parseFloat(filters.priceMin));
-    }
-    if (filters.priceMax) {
-      filteredTransactions = filteredTransactions.filter(transaction => transaction.price <= parseFloat(filters.priceMax));
-    }
     if (filters.customerName) {
       filteredTransactions = filteredTransactions.filter(transaction => transaction.customerName === filters.customerName);
     }
@@ -102,8 +97,6 @@ const AllTransactions = () => {
       tradeType: '',
       saudaType: '',
       saudaDate: '',
-      priceMin: '',
-      priceMax: '',
       customerName: '',
     });
     setTransactions(initialTransactions);
@@ -186,28 +179,6 @@ const AllTransactions = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
             <TextField
-              label="Price Min"
-              name="priceMin"
-              value={filters.priceMin}
-              onChange={handleFilterChange}
-              type="number"
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={2}>
-            <TextField
-              label="Price Max"
-              name="priceMax"
-              value={filters.priceMax}
-              onChange={handleFilterChange}
-              type="number"
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={2}>
-            <TextField
               label="Customer Name"
               name="customerName"
               value={filters.customerName}
@@ -244,6 +215,7 @@ const AllTransactions = () => {
                 <TableCell>IPO Name</TableCell>
                 <TableCell>Client Name</TableCell>
                 <TableCell>Sauda Type</TableCell>
+                <TableCell>Application Type</TableCell>
                 <TableCell>Sauda Date</TableCell>
                 <TableCell>Price</TableCell>
                 <TableCell>Quantity</TableCell>
@@ -256,6 +228,7 @@ const AllTransactions = () => {
                   <TableCell>{transaction.ipoName}</TableCell>
                   <TableCell>{transaction.customerName}</TableCell>
                   <TableCell>{transaction.saudaType}</TableCell>
+                  <TableCell>{transaction.applicationType}</TableCell>
                   <TableCell>{transaction.saudaDate}</TableCell>
                   <TableCell>{transaction.price}</TableCell>
                   <TableCell>{transaction.quantity}</TableCell>
