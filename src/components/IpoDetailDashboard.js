@@ -17,14 +17,31 @@ const initialIpos = [
 
 const IpoDetailDashboard = () => {
   const [selectedIpo, setSelectedIpo] = useState('');
-  const [expectedListingPrice, setExpectedListingPrice] = useState('');
-  const [avgSharePerRetailApp, setAvgSharePerRetailApp] = useState('');
-  const [avgSharePerShniApp, setAvgSharePerShniApp] = useState('');
-  const [avgSharePerBhniApp, setAvgSharePerBhniApp] = useState('');
+  const [expectedListingPrice, setExpectedListingPrice] = useState(150);
+  const [avgSharePerRetailApp, setAvgSharePerRetailApp] = useState(10);
+  const [avgSharePerShniApp, setAvgSharePerShniApp] = useState(20);
+  const [avgSharePerBhniApp, setAvgSharePerBhniApp] = useState(30);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleApply = () => {
     setShowDetails(true);
+  };
+
+  const calculateExpectedProfit = (shares, avgPrice) => {
+    return (expectedListingPrice - avgPrice) * shares;
+  };
+
+  const calculateTotalExpectedShares = () => {
+    return (
+      parseInt(avgSharePerRetailApp || 0) +
+      parseInt(avgSharePerShniApp || 0) +
+      parseInt(avgSharePerBhniApp || 0)
+    );
+  };
+
+  const calculateTotalExpectedProfit = () => {
+    const totalShares = calculateTotalExpectedShares();
+    return totalShares * (expectedListingPrice - avgSharePerRetailApp);
   };
 
   return (
@@ -101,86 +118,170 @@ const IpoDetailDashboard = () => {
       </Grid>
 
       {showDetails && (
-        <Paper style={{ padding: '20px' }}>
-          <Typography variant="h5" gutterBottom>
-            Profit Booked So Far
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            Type of Trade
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Outstanding Shares
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for shares */}
-          </Typography>
+        <Grid container spacing={3}>
+          {/* Total Profit Booked So Far */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper style={{ padding: '20px' }}>
+              <Typography variant="h6" gutterBottom>
+                Total Profit Booked So Far
+              </Typography>
+              <Typography variant="body1">
+                {/* Display total profit booked so far */}
+                $10,000 {/* Example value */}
+              </Typography>
+            </Paper>
+          </Grid>
 
-          <Typography variant="h6" gutterBottom style={{ marginTop: '20px' }}>
-            Apps
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Retail
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for retail */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for retail */}
-          </Typography>
+          {/* Shares */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper style={{ padding: '20px' }}>
+              <Typography variant="h6" gutterBottom>
+                Shares
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Outstanding Shares
+              </Typography>
+              <Typography variant="body1">
+                {/* Display outstanding shares */}
+                100 {/* Example value */}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(100, 120) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(100, 120)}
+              </Typography>
+            </Paper>
+          </Grid>
 
-          <Typography variant="subtitle1" gutterBottom>
-            SHNI
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for SHNI */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for SHNI */}
-          </Typography>
+          {/* Apps */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper style={{ padding: '20px' }}>
+              <Typography variant="h6" gutterBottom>
+                Apps
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Retail
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerRetailApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerRetailApp, 100) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerRetailApp, 100)}
+              </Typography>
 
-          <Typography variant="subtitle1" gutterBottom>
-            BHNI
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for BHNI */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for BHNI */}
-          </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                SHNI
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerShniApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerShniApp, 110) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerShniApp, 110)}
+              </Typography>
 
-          <Typography variant="h6" gutterBottom style={{ marginTop: '20px' }}>
-            Subject to Shares
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Retail
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for retail subject to */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for retail subject to */}
-          </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                BHNI
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerBhniApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerBhniApp, 120) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerBhniApp, 120)}
+              </Typography>
+            </Paper>
+          </Grid>
 
-          <Typography variant="subtitle1" gutterBottom>
-            SHNI
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for SHNI subject to */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for SHNI subject to */}
-          </Typography>
+          {/* Subject to Sauda */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper style={{ padding: '20px' }}>
+              <Typography variant="h6" gutterBottom>
+                Subject to Sauda
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Retail
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerRetailApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerRetailApp, 100) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerRetailApp, 100)}
+              </Typography>
 
-          <Typography variant="subtitle1" gutterBottom>
-            BHNI
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Number of Shares: {/* Calculate expected number of shares for BHNI subject to */}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Expected Profit: {/* Calculate expected profit for BHNI subject to */}
-          </Typography>
-        </Paper>
+              <Typography variant="subtitle1" gutterBottom>
+                SHNI
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerShniApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerShniApp, 110) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerShniApp, 110)}
+              </Typography>
+
+              <Typography variant="subtitle1" gutterBottom>
+                BHNI
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerBhniApp}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateExpectedProfit(avgSharePerBhniApp, 120) >= 0 ? 'green' : 'red',
+                }}
+              >
+                Expected Profit: {calculateExpectedProfit(avgSharePerBhniApp, 120)}
+              </Typography>
+            </Paper>
+          </Grid>
+
+          {/* Total Expected Shares and Profit */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper style={{ padding: '20px' }}>
+              <Typography variant="h6" gutterBottom>
+                Total Expected Shares and Profit
+              </Typography>
+              <Typography variant="body1">
+                Total Expected Shares: {calculateTotalExpectedShares()}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: calculateTotalExpectedProfit() >= 0 ? 'green' : 'red',
+                }}
+              >
+                Total Expected Profit: {calculateTotalExpectedProfit()}
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
       )}
     </Container>
   );
