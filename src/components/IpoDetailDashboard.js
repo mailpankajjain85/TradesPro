@@ -57,11 +57,6 @@ const IpoDetailDashboard = () => {
     );
   };
 
-  const calculateTotalExpectedProfit = () => {
-    const totalShares = calculateTotalExpectedShares();
-    return totalShares * expectedPremium;
-  };
-
   const outstandingSharesProfit = calculateExpectedProfit(numOutstandingShares, 1, numOutstandingShares * numAvgShareCostPrice);
   const retailAppsProfit = calculateExpectedProfit(avgSharePerRetailApp, numRetailApps, numRetailAppsCostAverage * numRetailApps);
   const shniAppsProfit = calculateExpectedProfit(avgSharePerShniApp, numShniApps, numShniApps * numShniAppsCostAverage);
