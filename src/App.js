@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import IpoTransactionPanCardDetails from "./components/IpoTransactionPanCardDetails"; 
 import IpoTransactionAllotmentDetails from "./components/IpoTransactionAllotmentDetails"; // Import the new component
 import IpoDetailDashboard from "./components/IpoDetailDashboard";
+import ClientProfitDashboard from "./components/ClientProfitDashboard";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -39,6 +40,7 @@ function App() {
                   <Route path="/ipo-status-dashboard" element={<IpoStatusDashboard />} />
                   <Route path="/ipo-transaction-pan-card-details" element={<IpoTransactionPanCardDetails />} />
                   <Route path="/ipo-transaction-allotment-details" element={<IpoTransactionAllotmentDetails />} />
+                  <Route path="/client-profit-dashboard" element={<ClientProfitDashboard />} />
                   <Route path="/ipo-detail-dashboard" element={<IpoDetailDashboard />} /> {/* Add the new route */}
                 </>
               )}
