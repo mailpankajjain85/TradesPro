@@ -13,7 +13,9 @@ import {
   TextField,
   Button,
   MenuItem,
+  IconButton,
 } from "@mui/material";
+import { Edit, Save } from "@mui/icons-material";
 
 const initialTransactions = [
   {
@@ -60,6 +62,7 @@ const AllTransactions = () => {
     saudaDate: '',
     customerName: '',
   });
+  const [editingRow, setEditingRow] = useState(null);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -100,6 +103,26 @@ const AllTransactions = () => {
       customerName: '',
     });
     setTransactions(initialTransactions);
+  };
+
+  const handleEdit = (transaction) => {
+    setEditingRow(transaction);
+  };
+
+  const handleSave = (id) => {
+    const updatedTransactions = transactions.map((transaction) =>
+      transaction.id === id ? editingRow : transaction
+    );
+    setTransactions(updatedTransactions);
+    setEditingRow(null);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditingRow({
+      ...editingRow,
+      [name]: value,
+    });
   };
 
   const uniqueIpoNames = [...new Set(initialTransactions.map(transaction => transaction.ipoName))];
@@ -220,19 +243,161 @@ const AllTransactions = () => {
                 <TableCell>Price</TableCell>
                 <TableCell>Quantity</TableCell>
                 <TableCell>Trade Type</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {transactions.map((transaction) => (
                 <TableRow key={transaction.id}>
-                  <TableCell>{transaction.ipoName}</TableCell>
-                  <TableCell>{transaction.customerName}</TableCell>
-                  <TableCell>{transaction.saudaType}</TableCell>
-                  <TableCell>{transaction.applicationType}</TableCell>
-                  <TableCell>{transaction.saudaDate}</TableCell>
-                  <TableCell>{transaction.price}</TableCell>
-                  <TableCell>{transaction.quantity}</TableCell>
-                  <TableCell>{transaction.tradeType}</TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="ipoName"
+                        value={editingRow.ipoName}
+                        onChange={handleChange}
+                        select
+                        fullWidth
+                        size="small"
+                      >
+                        {uniqueIpoNames.map((ipoName) => (
+                          <MenuItem key={ipoName} value={ipoName}>
+                            {ipoName}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    ) : (
+                      transaction.ipoName
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="customerName"
+                        value={editingRow.customerName}
+                        onChange={handleChange}
+                        select
+                        fullWidth
+                        size="small"
+                      >
+                        {uniqueCustomerNames.map((customerName) => (
+                          <MenuItem key={customerName} value={customerName}>
+                            {customerName}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    ) : (
+                      transaction.customerName
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="saudaType"
+                        value={editingRow.saudaType}
+                        onChange={handleChange}
+                        select
+                        fullWidth
+                        size="small"
+                      >
+                        <MenuItem value="Shares">Shares</MenuItem>
+                        <MenuItem value="Subject To">Subject To</MenuItem>
+                        <MenuItem value="Applications">Applications</MenuItem>
+                      </TextField>
+                    ) : (
+                      transaction.saudaType
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="applicationType"
+                        value={editingRow.applicationType}
+                        onChange={handleChange}
+                        select
+                        fullWidth
+                        size="small"
+                      >
+                        <MenuItem value="">None</MenuItem>
+                        <MenuItem value="bhni">BHNI</MenuItem>
+                        <MenuItem value="shni">SHNI</MenuItem>
+                      </TextField>
+                    ) : (
+                      transaction.applicationType
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="saudaDate"
+                        value={editingRow.saudaDate}
+                        onChange={handleChange}
+                        type="date"
+                        fullWidth
+                        size="small"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    ) : (
+                      transaction.saudaDate
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="price"
+                        value={editingRow.price}
+                        onChange={handleChange}
+                        type="number"
+                        fullWidth
+                        size="small"
+                      />
+                    ) : (
+                      transaction.price
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="quantity"
+                        value={editingRow.quantity}
+                        onChange={handleChange}
+                        type="number"
+                        fullWidth
+                        size="small"
+                      />
+                    ) : (
+                      transaction.quantity
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <TextField
+                        name="tradeType"
+                        value={editingRow.tradeType}
+                        onChange={handleChange}
+                        select
+                        fullWidth
+                        size="small"
+                      >
+                        <MenuItem value="Buy">Buy</MenuItem>
+                        <MenuItem value="Sell">Sell</MenuItem>
+                      </TextField>
+                    ) : (
+                      transaction.tradeType
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editingRow && editingRow.id === transaction.id ? (
+                      <IconButton onClick={() => handleSave(transaction.id)}>
+                        <Save />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={() => handleEdit(transaction)}>
+                        <Edit />
+                      </IconButton>
+                    )}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
