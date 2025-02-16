@@ -16,6 +16,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Edit, Save } from "@mui/icons-material";
+import withAuthorization from "./withAuthorization"; // Import the HOC
 
 const initialTransactions = [
   {
@@ -53,7 +54,7 @@ const initialTransactions = [
   },
 ];
 
-const AllTransactions = () => {
+const AllTransactions = ({ loggedInUser }) => {
   const [transactions, setTransactions] = useState(initialTransactions);
   const [filters, setFilters] = useState({
     ipoName: '',
@@ -408,4 +409,4 @@ const AllTransactions = () => {
   );
 };
 
-export default AllTransactions;
+export default withAuthorization(AllTransactions, ["staff"]);
