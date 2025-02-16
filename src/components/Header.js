@@ -143,6 +143,7 @@ const Header = () => {
             <MenuItem onClick={() => handleNavigation("/ipo-status-dashboard")}>IPO Status Dashboard</MenuItem>
             <MenuItem onClick={() => handleNavigation("/ipo-detail-dashboard")}>IPO Detail Dashboard</MenuItem> {/* Add the new menu item */}
             <MenuItem onClick={() => handleNavigation("/client-profit-dashboard")}>Client Profit Dashboard</MenuItem>
+            <MenuItem onClick={() => handleNavigation("/client-outstanding-dashboard")}>Client Outstanding Dashboard</MenuItem>
           </Menu>
         </Menu>
       </Toolbar>
