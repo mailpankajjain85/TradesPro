@@ -19,7 +19,7 @@ import {
   TextField,
 } from '@mui/material';
 import * as XLSX from 'xlsx';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialData = [
   { id: 1, ipoName: 'Sanathan', clientName: 'Pankaj', saudaType: 'Small Hni App', quantity: 100, panCardUpdated: 'Yes' },
   { id: 2, ipoName: 'Transrail', clientName: 'Piyush', saudaType: 'Big Hni App', quantity: 50, panCardUpdated: 'Yes' },
@@ -236,5 +236,4 @@ const IpoTransactionPanCardDetails = () => {
     </Container>
   );
 };
-
-export default IpoTransactionPanCardDetails;
+export default withAuthorization(IpoTransactionPanCardDetails, ["admin", "user"]);

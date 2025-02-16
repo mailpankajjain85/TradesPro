@@ -8,7 +8,7 @@ import {
   MenuItem,
   Button,
 } from '@mui/material';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialIpos = [
   { id: 1, name: 'Sanathan' },
   { id: 2, name: 'Transrail' },
@@ -344,5 +344,4 @@ const IpoDetailDashboard = () => {
     </Container>
   );
 };
-
-export default IpoDetailDashboard;
+export default withAuthorization(IpoDetailDashboard, ["admin", "user"]);

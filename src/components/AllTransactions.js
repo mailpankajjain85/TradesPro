@@ -409,4 +409,4 @@ const AllTransactions = ({ loggedInUser }) => {
   );
 };
 
-export default withAuthorization(AllTransactions, ["staff"]);
+export default withAuthorization(AllTransactions, ["admin", "user", "staff"]);

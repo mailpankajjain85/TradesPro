@@ -16,7 +16,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { Add, Save, Edit } from '@mui/icons-material';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialClients = [
   { id: 1, name: 'Client A' },
   { id: 2, name: 'Client B' },
@@ -230,5 +230,4 @@ const MoneyTransactions = () => {
     </Container>
   );
 };
-
-export default MoneyTransactions;
+export default withAuthorization(MoneyTransactions, ["admin", "user"]);

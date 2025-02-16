@@ -17,7 +17,7 @@ import {
   Grid,
 } from '@mui/material';
 import * as XLSX from 'xlsx';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialData = [
   { id: 1, ipoName: 'Sanathan', clientName: 'Pankaj', panCardNumber: 'ABCDE1234F', alloted: 'Yes', allotmentShares: 100 },
   { id: 2, ipoName: 'Transrail', clientName: 'Piyush', panCardNumber: 'FGHIJ5678K', alloted: 'No', allotmentShares: 0 },
@@ -137,5 +137,4 @@ const IpoTransactionAllotmentDetails = () => {
     </Container>
   );
 };
-
-export default IpoTransactionAllotmentDetails;
+export default withAuthorization(IpoTransactionAllotmentDetails, ["admin", "user"]);

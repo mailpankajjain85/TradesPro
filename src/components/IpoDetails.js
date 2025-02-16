@@ -10,7 +10,7 @@ import {
   TableRow,
   Paper
   } from "@mui/material";
-
+  import withAuthorization from "./withAuthorization"; // Import the HOC
 const IpoDetails = () => {
   // Sample IPO data
   const ipos = [
@@ -53,5 +53,4 @@ const IpoDetails = () => {
     </div>
   );
 };
-
-export default IpoDetails;
+export default withAuthorization(IpoDetails, ["admin", "user"]);

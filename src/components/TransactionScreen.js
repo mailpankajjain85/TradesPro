@@ -14,7 +14,7 @@ import {
   Grid,
   MenuItem,
 } from "@mui/material";
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const TransactionScreen = () => {
   // State to manage form inputs
   const [transaction, setTransaction] = useState({
@@ -195,5 +195,4 @@ const TransactionScreen = () => {
     </div>
   );
 };
-
-export default TransactionScreen;
+export default withAuthorization(TransactionScreen, ["admin", "user"]);

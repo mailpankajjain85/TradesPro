@@ -14,7 +14,7 @@ import {
   TableRow,
   Button,
 } from '@mui/material';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialClients = [
   { id: 1, name: 'Client A' },
   { id: 2, name: 'Client B' },
@@ -139,5 +139,4 @@ const ClientProfitDashboard = () => {
     </Container>
   );
 };
-
-export default ClientProfitDashboard;
+export default withAuthorization(ClientProfitDashboard, ["admin", "user"]);

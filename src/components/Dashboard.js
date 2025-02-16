@@ -1,4 +1,5 @@
 import React from "react";
+import withAuthorization from "./withAuthorization";
 import { Container, Typography, Paper, Grid } from "@mui/material";
 import {
   BarChart,
@@ -10,7 +11,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
 const Dashboard = () => {
   // Sample data for the chart
   const data = [
@@ -75,5 +75,4 @@ const Dashboard = () => {
     </div>
   );
 };
-
-export default Dashboard;
+export default withAuthorization(Dashboard, ["admin", "user"]);

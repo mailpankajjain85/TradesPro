@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Grid, Container, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import withAuthorization from "./withAuthorization"; // Import the HOC
 const initialRows = [
   { id: 1, name: 'Pankaj Jain', phoneNumber: '123-456-7890' },
   { id: 2, name: 'Tanish Jain', phoneNumber: '987-654-3210' },
@@ -123,5 +123,4 @@ const CustomerDetails = () => {
     </Container>
   );
 };
-
-export default CustomerDetails;
+export default withAuthorization(CustomerDetails, ["admin", "user"]);
