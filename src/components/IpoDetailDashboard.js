@@ -17,31 +17,42 @@ const initialIpos = [
 
 const IpoDetailDashboard = () => {
   const [selectedIpo, setSelectedIpo] = useState('');
-  const [expectedListingPrice, setExpectedListingPrice] = useState(150);
+  const [expectedPremium, setexpectedPremium] = useState(150);
   const [avgSharePerRetailApp, setAvgSharePerRetailApp] = useState(10);
   const [avgSharePerShniApp, setAvgSharePerShniApp] = useState(20);
   const [avgSharePerBhniApp, setAvgSharePerBhniApp] = useState(30);
+  const [numRetailApps] = useState(75);
+  const [numShniApps] = useState(36);
+  const [numBhniApps] = useState(45);
+  const [numBhniSubjTo] = useState(35);
+  const [numShniSubjTo] = useState(18);
+  const [numRetailSubjTo] = useState(96);
+  const [numOutstandingShares] = useState(1600);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleApply = () => {
     setShowDetails(true);
   };
 
-  const calculateExpectedProfit = (shares, avgPrice) => {
-    return (expectedListingPrice - avgPrice) * shares;
+  const calculateExpectedProfit = (shares, numberOfApps = 1) => {
+    return (expectedPremium) * shares * numberOfApps;
   };
 
   const calculateTotalExpectedShares = () => {
     return (
-      parseInt(avgSharePerRetailApp || 0) +
-      parseInt(avgSharePerShniApp || 0) +
-      parseInt(avgSharePerBhniApp || 0)
+      parseInt(avgSharePerRetailApp * numRetailApps || 0) +
+      parseInt(avgSharePerShniApp * numShniApps || 0) +
+      parseInt(avgSharePerBhniApp * numBhniApps || 0) +
+      parseInt(avgSharePerRetailApp * numRetailSubjTo || 0) +
+      parseInt(avgSharePerShniApp * numShniSubjTo || 0) +
+      parseInt(avgSharePerBhniApp * numBhniSubjTo || 0) +
+      parseInt(numOutstandingShares || 0)
     );
   };
 
   const calculateTotalExpectedProfit = () => {
     const totalShares = calculateTotalExpectedShares();
-    return totalShares * (expectedListingPrice - avgSharePerRetailApp);
+    return totalShares * (expectedPremium);
   };
 
   return (
@@ -71,8 +82,8 @@ const IpoDetailDashboard = () => {
             <Grid item xs={12} sm={6} md={2}>
               <TextField
                 label="Expected Listing Price"
-                value={expectedListingPrice}
-                onChange={(e) => setExpectedListingPrice(e.target.value)}
+                value={expectedPremium}
+                onChange={(e) => setexpectedPremium(e.target.value)}
                 type="number"
                 fullWidth
                 size="small"
@@ -133,7 +144,7 @@ const IpoDetailDashboard = () => {
               </Typography>
               <Typography variant="body1">
                 {/* Display total profit booked so far */}
-                $10,000 {/* Example value */}
+                ₹10,000 {/* Example value */}
               </Typography>
               <Typography variant="h6" gutterBottom style={{ marginTop: '20px' }}>
                 Total Expected Shares and Profit
@@ -159,19 +170,15 @@ const IpoDetailDashboard = () => {
                 Shares
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Outstanding Shares
-              </Typography>
-              <Typography variant="body1">
-                {/* Display outstanding shares */}
-                100 {/* Example value */}
+                Outstanding Shares: numOutstandingShares
               </Typography>
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(100, 120) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(numOutstandingShares) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(100, 120)}
+                Expected Profit: ₹{calculateExpectedProfit(numOutstandingShares)}
               </Typography>
             </Paper>
           </Grid>
@@ -186,19 +193,25 @@ const IpoDetailDashboard = () => {
                 Retail
               </Typography>
               <Typography variant="body1">
-                Expected Number of Shares: {avgSharePerRetailApp}
+                Total Apps: numRetailApps
+              </Typography>
+              <Typography variant="body1">
+                Expected Number of Shares: {avgSharePerRetailApp * numRetailApps}
               </Typography>
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerRetailApp, 100) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerRetailApp , numRetailApps) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerRetailApp, 100)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerRetailApp , numRetailApps)}
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
                 SHNI
+              </Typography>
+              <Typography variant="body1">
+                Total Apps: numShniApps
               </Typography>
               <Typography variant="body1">
                 Expected Number of Shares: {avgSharePerShniApp}
@@ -206,14 +219,17 @@ const IpoDetailDashboard = () => {
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerShniApp, 110) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerShniApp, numShniApps) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerShniApp, 110)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerShniApp, numShniApps)}
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
                 BHNI
+              </Typography>
+              <Typography variant="body1">
+                Total Apps: numBhniApps
               </Typography>
               <Typography variant="body1">
                 Expected Number of Shares: {avgSharePerBhniApp}
@@ -221,10 +237,10 @@ const IpoDetailDashboard = () => {
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerBhniApp, 120) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerBhniApp, numBhniApps) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerBhniApp, 120)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerBhniApp, numBhniApps)}
               </Typography>
             </Paper>
           </Grid>
@@ -239,19 +255,25 @@ const IpoDetailDashboard = () => {
                 Retail
               </Typography>
               <Typography variant="body1">
+                Total Apps: numRetailSubjTo
+              </Typography>
+              <Typography variant="body1">
                 Expected Number of Shares: {avgSharePerRetailApp}
               </Typography>
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerRetailApp, 100) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerRetailApp, numRetailSubjTo) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerRetailApp, 100)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerRetailApp, numRetailSubjTo)}
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
                 SHNI
+              </Typography>
+              <Typography variant="body1">
+                Total Apps: numShniSubjTo
               </Typography>
               <Typography variant="body1">
                 Expected Number of Shares: {avgSharePerShniApp}
@@ -259,14 +281,17 @@ const IpoDetailDashboard = () => {
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerShniApp, 110) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerShniApp, numShniSubjTo) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerShniApp, 110)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerShniApp, numShniSubjTo)}
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
                 BHNI
+              </Typography>
+              <Typography variant="body1">
+                Total Apps: numBhniSubjTo
               </Typography>
               <Typography variant="body1">
                 Expected Number of Shares: {avgSharePerBhniApp}
@@ -274,10 +299,10 @@ const IpoDetailDashboard = () => {
               <Typography
                 variant="body1"
                 style={{
-                  color: calculateExpectedProfit(avgSharePerBhniApp, 120) >= 0 ? 'green' : 'red',
+                  color: calculateExpectedProfit(avgSharePerBhniApp, numBhniSubjTo) >= 0 ? 'green' : 'red',
                 }}
               >
-                Expected Profit: ₹{calculateExpectedProfit(avgSharePerBhniApp, 120)}
+                Expected Profit: ₹{calculateExpectedProfit(avgSharePerBhniApp, numBhniSubjTo)}
               </Typography>
             </Paper>
           </Grid>
