@@ -11,7 +11,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BusinessIcon from '@mui/icons-material/Business';
 import logo from '../parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
-import withAuthorization from "./withAuthorization"; // Import the HOC
+
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
