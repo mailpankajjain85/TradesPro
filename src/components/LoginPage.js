@@ -9,10 +9,15 @@ const LoginPage = ({ setLoggedInUser }) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Hardcoded users and passwords
-    const users = ["bljain", "Pankaj123", "Piyush123"];
-    if (users.includes(username) && password === username) {
-      setLoggedInUser(username); // Set the logged-in user
+    // Hardcoded users, passwords, and roles
+    const users = {
+      bljain: { password: "bljain", role: "admin" },
+      Pankaj123: { password: "Pankaj123", role: "staff" },
+      Piyush123: { password: "Piyush123", role: "user" },
+    };
+
+    if (users[username] && users[username].password === password) {
+      setLoggedInUser({ username, role: users[username].role }); // Set the logged-in user with role
       navigate("/"); // Redirect to the home page
     } else {
       setError("Invalid username or password");
