@@ -12,7 +12,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import logo from '../parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ loggedInUser }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const navigate = useNavigate();
@@ -60,8 +60,8 @@ const Header = () => {
           )}
           <Grid item xs={isSmallScreen ? 6 : 3} container justifyContent="flex-end" alignItems="center">
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Tooltip title="Pankaj">
-                <Avatar alt="Pankaj" src="/static/images/avatar/1.jpg" sx={{ marginRight: 1 }} />
+            <Tooltip title={loggedInUser ? loggedInUser.username : "Guest"}>
+                <Avatar alt={loggedInUser ? loggedInUser.username : "Guest"} src="/static/images/avatar/1.jpg" sx={{ marginRight: 1 }} />
               </Tooltip>
               <IconButton
                 color="inherit"

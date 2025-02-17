@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Grid } from "@mui/material";
 import TransactionScreen from "./components/TransactionScreen";
 import CustomerDetails from "./components/CustomerDetails";
 import IpoDetails from "./components/IpoDetails";
@@ -15,45 +14,33 @@ import IpoDetailDashboard from "./components/IpoDetailDashboard";
 import ClientProfitDashboard from "./components/ClientProfitDashboard";
 import ClientOutstandingDashboard from "./components/ClientOutstandingDashboard";
 import MoneyTransactions from "./components/MoneyTransactions";
+import withAuthorization from "./components/withAuthorization";
 
-function App() {
+const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+
 
   return (
     <Router>
-      {loggedInUser && <Header loggedInUser={loggedInUser} />}
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+      <Header loggedInUser={loggedInUser} />
             <Routes>
-              {!loggedInUser && (
-                <Route
-                  path="/"
-                  element={<LoginPage setLoggedInUser={setLoggedInUser} />}
-                />
-              )}
-              {loggedInUser && (
-                <>
-                  <Route path="/" element={<TransactionScreen />} />
-                  <Route path="/customer-details" element={<CustomerDetails />} />
-                  <Route path="/ipo-details" element={<IpoDetails />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/all-transactions" element={<AllTransactions />} />
-                  <Route path="/ipo-status-dashboard" element={<IpoStatusDashboard />} />
-                  <Route path="/ipo-transaction-pan-card-details" element={<IpoTransactionPanCardDetails />} />
-                  <Route path="/ipo-transaction-allotment-details" element={<IpoTransactionAllotmentDetails />} />
-                  <Route path="/ipo-detail-dashboard" element={<IpoDetailDashboard />} /> {/* Add the new route */}
-                  <Route path="/client-profit-dashboard" element={<ClientProfitDashboard />} />
-                  <Route path ="/client-outstanding-dashboard" element = {<ClientOutstandingDashboard />} />
-                  <Route path ="/money-transactions" element = {<MoneyTransactions />} />
-                </>
-              )}
+                  <Route path="/login" element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
+                  <Route path="/all-transactions" element={withAuthorization(AllTransactions, ["staff", "admin", "user"])(loggedInUser)} />
+                  <Route path="/" element={withAuthorization(TransactionScreen, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/customer-details" element={withAuthorization(CustomerDetails, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/ipo-details" element={withAuthorization(IpoDetails, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/all-transactions" element={withAuthorization(AllTransactions, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/ipo-status-dashboard" element={withAuthorization(IpoStatusDashboard, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/ipo-transaction-pan-card-details" element={withAuthorization(IpoTransactionPanCardDetails, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/ipo-transaction-allotment-details" element={withAuthorization(IpoTransactionAllotmentDetails, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/ipo-detail-dashboard" element={withAuthorization(IpoDetailDashboard, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/client-profit-dashboard" element={withAuthorization(ClientProfitDashboard, ["admin", "user"])(loggedInUser)} />
+                  <Route path ="/client-outstanding-dashboard" element={withAuthorization(ClientOutstandingDashboard, ["admin", "user"])(loggedInUser)} />
+                  <Route path ="/money-transactions" element={withAuthorization(MoneyTransactions, ["admin", "user"])(loggedInUser)} />
+                  <Route path="/dashboard" element={withAuthorization(Dashboard, ["admin", "user"])(loggedInUser)} />
             </Routes>
-          </Grid>
-        </Grid>
-      </Container>
     </Router>
   );
-}
+};
 
 export default App;
