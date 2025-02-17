@@ -85,79 +85,83 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={() => handleNavigation("/")}>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            Transaction Screen
-          </MenuItem>
-          <MenuItem onClick={() => handleNavigation("/customer-details")}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            Customer Details
-          </MenuItem>
-          <MenuItem onClick={() => handleNavigation("/ipo-details")}>
-            <ListItemIcon>
-              <AccountBalanceIcon />
-            </ListItemIcon>
-            IPO Details
-          </MenuItem>
-          <MenuItem onClick={() => handleNavigation("/all-transactions")}>
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            All Transactions
-          </MenuItem>
-          <MenuItem onClick={() => handleNavigation("/money-transactions")}>
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            Money Transactions
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={() => handleNavigation("/ipo-transaction-pan-card-details")}>
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            Ipo Transaction Pan Card Details
-          </MenuItem>
-          <MenuItem onClick={() => handleNavigation("/ipo-transaction-allotment-details")}>
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            Ipo Transaction Allotment Details
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleSubmenuClick}>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            Dashboard
-            <ListItemIcon>
-              <ArrowRightIcon />
-            </ListItemIcon>
-          </MenuItem>
-          <Menu
-            anchorEl={submenuAnchorEl}
-            open={Boolean(submenuAnchorEl)}
-            onClose={handleSubmenuClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            <MenuItem onClick={() => handleNavigation("/dashboard")}>Overall Dashboard</MenuItem>
-            <MenuItem onClick={() => handleNavigation("/ipo-status-dashboard")}>IPO Status Dashboard</MenuItem>
-            <MenuItem onClick={() => handleNavigation("/ipo-detail-dashboard")}>IPO Detail Dashboard</MenuItem>
-            <MenuItem onClick={() => handleNavigation("/client-profit-dashboard")}>Client Profit Dashboard</MenuItem>
-            <MenuItem onClick={() => handleNavigation("/client-outstanding-dashboard")}>Client Outstanding Dashboard</MenuItem>
-          </Menu>
-          <Divider />
+          {loggedInUser && loggedInUser.role === "admin" && (
+            <>
+              <MenuItem onClick={() => handleNavigation("/")}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                Transaction Screen
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/customer-details")}>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                Customer Details
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/ipo-details")}>
+                <ListItemIcon>
+                  <AccountBalanceIcon />
+                </ListItemIcon>
+                IPO Details
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/all-transactions")}>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                All Transactions
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/money-transactions")}>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                Money Transactions
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => handleNavigation("/ipo-transaction-pan-card-details")}>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                Ipo Transaction Pan Card Details
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/ipo-transaction-allotment-details")}>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                Ipo Transaction Allotment Details
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleSubmenuClick}>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                Dashboard
+                <ListItemIcon>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+              </MenuItem>
+              <Menu
+                anchorEl={submenuAnchorEl}
+                open={Boolean(submenuAnchorEl)}
+                onClose={handleSubmenuClose}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <MenuItem onClick={() => handleNavigation("/dashboard")}>Overall Dashboard</MenuItem>
+                <MenuItem onClick={() => handleNavigation("/ipo-status-dashboard")}>IPO Status Dashboard</MenuItem>
+                <MenuItem onClick={() => handleNavigation("/ipo-detail-dashboard")}>IPO Detail Dashboard</MenuItem>
+                <MenuItem onClick={() => handleNavigation("/client-profit-dashboard")}>Client Profit Dashboard</MenuItem>
+                <MenuItem onClick={() => handleNavigation("/client-outstanding-dashboard")}>Client Outstanding Dashboard</MenuItem>
+              </Menu>
+              <Divider />
+            </>
+          )}
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <LogoutIcon />
