@@ -12,8 +12,8 @@ const LoginPage = ({ setLoggedInUser }) => {
     // Hardcoded users, passwords, and roles
     const users = {
       bljain: { password: "bljain", role: "admin" },
-      Pankaj123: { password: "Pankaj123", role: "staff" },
-      Piyush123: { password: "Piyush123", role: "user" },
+      pankaj: { password: "pankaj", role: "staff" },
+      tanish: { password: "tanish", role: "user" },
     };
 
     if (users[username] && users[username].password === password) {
