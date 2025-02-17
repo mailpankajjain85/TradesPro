@@ -13,7 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import logo from '../parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ loggedInUser, setLoggedInUser }) => {
+const Header = ({ loggedInUser, setLoggedInUser = () => {} }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const navigate = useNavigate();
