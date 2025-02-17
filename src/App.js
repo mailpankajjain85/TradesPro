@@ -19,26 +19,37 @@ import withAuthorization from "./components/withAuthorization";
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
 
+  const AuthorizedAllTransactions = withAuthorization(AllTransactions, ["staff", "admin", "user"]);
+  const AuthorizedTransactionScreen = withAuthorization(TransactionScreen, ["admin", "user"]);
+  const AuthorizedCustomerDetails = withAuthorization(CustomerDetails, ["admin", "user"]);
+  const AuthorizedIpoDetails = withAuthorization(IpoDetails, ["admin", "user"]);
+  const AuthorizedIpoStatusDashboard = withAuthorization(IpoStatusDashboard, ["admin", "user"]);
+  const AuthorizedIpoTransactionPanCardDetails = withAuthorization(IpoTransactionPanCardDetails, ["admin", "user"]);
+  const AuthorizedIpoTransactionAllotmentDetails = withAuthorization(IpoTransactionAllotmentDetails, ["admin", "user"]);
+  const AuthorizedIpoDetailDashboard = withAuthorization(IpoDetailDashboard, ["admin", "user"]);
+  const AuthorizedClientProfitDashboard = withAuthorization(ClientProfitDashboard, ["admin", "user"]);
+  const AuthorizedClientOutstandingDashboard = withAuthorization(ClientOutstandingDashboard, ["admin", "user"]);
+  const AuthorizedMoneyTransactions = withAuthorization(MoneyTransactions, ["admin", "user"]);
+  const AuthorizedDashboard = withAuthorization(Dashboard, ["admin", "user"]);
 
   return (
     <Router>
       <Header loggedInUser={loggedInUser} />
-            <Routes>
-                  <Route path="/login" element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
-                  <Route path="/all-transactions" element={withAuthorization(AllTransactions, ["staff", "admin", "user"])(loggedInUser)} />
-                  <Route path="/" element={withAuthorization(TransactionScreen, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/customer-details" element={withAuthorization(CustomerDetails, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/ipo-details" element={withAuthorization(IpoDetails, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/all-transactions" element={withAuthorization(AllTransactions, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/ipo-status-dashboard" element={withAuthorization(IpoStatusDashboard, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/ipo-transaction-pan-card-details" element={withAuthorization(IpoTransactionPanCardDetails, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/ipo-transaction-allotment-details" element={withAuthorization(IpoTransactionAllotmentDetails, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/ipo-detail-dashboard" element={withAuthorization(IpoDetailDashboard, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/client-profit-dashboard" element={withAuthorization(ClientProfitDashboard, ["admin", "user"])(loggedInUser)} />
-                  <Route path ="/client-outstanding-dashboard" element={withAuthorization(ClientOutstandingDashboard, ["admin", "user"])(loggedInUser)} />
-                  <Route path ="/money-transactions" element={withAuthorization(MoneyTransactions, ["admin", "user"])(loggedInUser)} />
-                  <Route path="/dashboard" element={withAuthorization(Dashboard, ["admin", "user"])(loggedInUser)} />
-            </Routes>
+      <Routes>
+        <Route path="/login" element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
+        <Route path="/all-transactions" element={<AuthorizedAllTransactions loggedInUser={loggedInUser} />} />
+        <Route path="/" element={<AuthorizedTransactionScreen loggedInUser={loggedInUser} />} />
+        <Route path="/customer-details" element={<AuthorizedCustomerDetails loggedInUser={loggedInUser} />} />
+        <Route path="/ipo-details" element={<AuthorizedIpoDetails loggedInUser={loggedInUser} />} />
+        <Route path="/ipo-status-dashboard" element={<AuthorizedIpoStatusDashboard loggedInUser={loggedInUser} />} />
+        <Route path="/ipo-transaction-pan-card-details" element={<AuthorizedIpoTransactionPanCardDetails loggedInUser={loggedInUser} />} />
+        <Route path="/ipo-transaction-allotment-details" element={<AuthorizedIpoTransactionAllotmentDetails loggedInUser={loggedInUser} />} />
+        <Route path="/ipo-detail-dashboard" element={<AuthorizedIpoDetailDashboard loggedInUser={loggedInUser} />} />
+        <Route path="/client-profit-dashboard" element={<AuthorizedClientProfitDashboard loggedInUser={loggedInUser} />} />
+        <Route path="/client-outstanding-dashboard" element={<AuthorizedClientOutstandingDashboard loggedInUser={loggedInUser} />} />
+        <Route path="/money-transactions" element={<AuthorizedMoneyTransactions loggedInUser={loggedInUser} />} />
+        <Route path="/dashboard" element={<AuthorizedDashboard loggedInUser={loggedInUser} />} />
+      </Routes>
     </Router>
   );
 };
