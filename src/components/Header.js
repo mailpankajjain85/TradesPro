@@ -9,10 +9,11 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BusinessIcon from '@mui/icons-material/Business';
+import LogoutIcon from '@mui/icons-material/Logout';
 import logo from '../parthlogo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ loggedInUser }) => {
+const Header = ({ loggedInUser, setLoggedInUser }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const navigate = useNavigate();
@@ -40,6 +41,11 @@ const Header = ({ loggedInUser }) => {
     setSubmenuAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    navigate('/login');
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -60,7 +66,7 @@ const Header = ({ loggedInUser }) => {
           )}
           <Grid item xs={isSmallScreen ? 6 : 3} container justifyContent="flex-end" alignItems="center">
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title={loggedInUser ? loggedInUser.username : "Guest"}>
+              <Tooltip title={loggedInUser ? loggedInUser.username : "Guest"}>
                 <Avatar alt={loggedInUser ? loggedInUser.username : "Guest"} src="/static/images/avatar/1.jpg" sx={{ marginRight: 1 }} />
               </Tooltip>
               <IconButton
@@ -147,10 +153,17 @@ const Header = ({ loggedInUser }) => {
           >
             <MenuItem onClick={() => handleNavigation("/dashboard")}>Overall Dashboard</MenuItem>
             <MenuItem onClick={() => handleNavigation("/ipo-status-dashboard")}>IPO Status Dashboard</MenuItem>
-            <MenuItem onClick={() => handleNavigation("/ipo-detail-dashboard")}>IPO Detail Dashboard</MenuItem> {/* Add the new menu item */}
+            <MenuItem onClick={() => handleNavigation("/ipo-detail-dashboard")}>IPO Detail Dashboard</MenuItem>
             <MenuItem onClick={() => handleNavigation("/client-profit-dashboard")}>Client Profit Dashboard</MenuItem>
             <MenuItem onClick={() => handleNavigation("/client-outstanding-dashboard")}>Client Outstanding Dashboard</MenuItem>
           </Menu>
+          <Divider />
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
