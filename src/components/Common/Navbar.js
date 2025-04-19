@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../services/auth';
+import { useAuth } from '../../hooks/useAuth';
 
 function Navbar({ isAuthenticated, user }) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const profileMenuRef = useRef(null);
   const navigate = useNavigate();
+  const { logoutMutation } = useAuth();
   
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed:', error);
+  // Close the profile menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
     }
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        setShowProfileMenu(false);
+        navigate('/auth');
+      }
+    });
   };
   
   return (
@@ -66,7 +82,7 @@ function Navbar({ isAuthenticated, user }) {
               </ul>
               
               <div className="d-flex align-items-center">
-                <div className="position-relative">
+                <div className="position-relative" ref={profileMenuRef}>
                   <button
                     className="btn btn-outline-light d-flex align-items-center"
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
@@ -81,29 +97,33 @@ function Navbar({ isAuthenticated, user }) {
                   </button>
                   
                   {showProfileMenu && (
-                    <div className="profile-dropdown">
+                    <div className="profile-dropdown shadow">
                       <div className="profile-header">
                         <h6 className="mb-0">{user?.firstName} {user?.lastName}</h6>
                         <p className="small text-muted mb-0">{user?.email}</p>
                       </div>
                       <div className="profile-menu">
-                        <a href="#" className="profile-item">
+                        <Link to="/dashboard" className="profile-item">
                           <i className="fas fa-user me-2"></i>
                           Profile
-                        </a>
-                        <a href="#" className="profile-item">
+                        </Link>
+                        <Link to="/dashboard" className="profile-item">
                           <i className="fas fa-cog me-2"></i>
                           Settings
-                        </a>
-                        <a href="#" className="profile-item">
+                        </Link>
+                        <Link to="/dashboard" className="profile-item">
                           <i className="fas fa-question-circle me-2"></i>
                           Help
-                        </a>
+                        </Link>
                         <div className="dropdown-divider"></div>
-                        <a href="#" className="profile-item text-danger" onClick={handleLogout}>
+                        <button 
+                          className="profile-item text-danger w-100 text-start bg-transparent border-0" 
+                          onClick={handleLogout}
+                          disabled={logoutMutation.isLoading}
+                        >
                           <i className="fas fa-sign-out-alt me-2"></i>
-                          Logout
-                        </a>
+                          {logoutMutation.isLoading ? 'Logging out...' : 'Logout'}
+                        </button>
                       </div>
                     </div>
                   )}
@@ -113,15 +133,9 @@ function Navbar({ isAuthenticated, user }) {
           ) : (
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/login">
+                <Link className="nav-link" to="/auth">
                   <i className="fas fa-sign-in-alt me-1"></i>
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  <i className="fas fa-user-plus me-1"></i>
-                  Register
+                  Login / Register
                 </Link>
               </li>
             </ul>
