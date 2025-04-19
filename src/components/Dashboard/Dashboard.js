@@ -1,264 +1,129 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAccountSummary, fetchRecentTrades, fetchMarketSummary } from '../../services/api';
-import Chart from 'chart.js/auto';
 
 function Dashboard({ user }) {
-  const [accountSummary, setAccountSummary] = useState(null);
-  const [recentTrades, setRecentTrades] = useState([]);
-  const [marketSummary, setMarketSummary] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Mock data for dashboard display
+  const accountSummary = {
+    balance: user?.balance || 10000,
+    portfolioValue: 65432.78,
+    totalValue: (user?.balance || 10000) + 65432.78,
+    dayChange: 1243.56,
+    dayChangePercent: 1.87
+  };
 
-  useEffect(() => {
-    let portfolioChartInstance = null;
-    
-    const fetchDashboardData = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        // Fetch account summary data
-        const summaryData = await fetchAccountSummary();
-        setAccountSummary(summaryData);
-        
-        // Fetch recent trades
-        const tradesData = await fetchRecentTrades();
-        setRecentTrades(tradesData);
-        
-        // Fetch market summary
-        const marketData = await fetchMarketSummary();
-        setMarketSummary(marketData);
-        
-        // Initialize portfolio chart
-        if (summaryData && summaryData.portfolioHistory) {
-          const ctx = document.getElementById('portfolioChart');
-          
-          if (ctx) {
-            // Destroy existing chart if it exists
-            if (portfolioChartInstance) {
-              portfolioChartInstance.destroy();
-            }
-            
-            portfolioChartInstance = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: summaryData.portfolioHistory.dates,
-                datasets: [{
-                  label: 'Portfolio Value',
-                  data: summaryData.portfolioHistory.values,
-                  fill: true,
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  tension: 0.1
-                }]
-              },
-              options: {
-                responsive: true,
-                plugins: {
-                  title: {
-                    display: true,
-                    text: 'Portfolio Performance (Last 30 Days)'
-                  },
-                  tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    callbacks: {
-                      label: function(context) {
-                        return `Value: $${context.parsed.y.toFixed(2)}`;
-                      }
-                    }
-                  }
-                },
-                scales: {
-                  y: {
-                    beginAtZero: false,
-                    ticks: {
-                      callback: function(value) {
-                        return '$' + value;
-                      }
-                    }
-                  }
-                }
-              }
-            });
-          }
-        }
-      } catch (err) {
-        console.error('Error fetching dashboard data:', err);
-        setError('Failed to load dashboard data. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchDashboardData();
-    
-    // Cleanup function to destroy chart when component unmounts
-    return () => {
-      if (portfolioChartInstance) {
-        portfolioChartInstance.destroy();
-      }
-    };
-  }, []);
+  const recentTrades = [
+    {
+      date: '2023-04-10T14:32:15',
+      symbol: 'AAPL',
+      type: 'BUY',
+      quantity: 10,
+      price: 185.92,
+      total: 1859.20,
+      status: 'COMPLETED'
+    },
+    {
+      date: '2023-04-09T10:22:35',
+      symbol: 'MSFT',
+      type: 'SELL',
+      quantity: 5,
+      price: 410.38,
+      total: 2051.90,
+      status: 'COMPLETED'
+    },
+    {
+      date: '2023-04-07T15:48:22',
+      symbol: 'TSLA',
+      type: 'BUY',
+      quantity: 8,
+      price: 177.67,
+      total: 1421.36,
+      status: 'COMPLETED'
+    }
+  ];
 
-  if (loading) {
-    return (
-      <div className="dashboard-loading">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p>Loading your dashboard...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="dashboard-error alert alert-danger">
-        <i className="fas fa-exclamation-triangle me-2"></i>
-        {error}
-        <button 
-          className="btn btn-outline-danger mt-3"
-          onClick={() => window.location.reload()}
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
+  const marketIndices = [
+    {
+      symbol: 'SPX',
+      name: 'S&P 500',
+      price: 5123.45,
+      change: 0.64
+    },
+    {
+      symbol: 'DJI',
+      name: 'Dow Jones',
+      price: 38762.34,
+      change: 0.38
+    },
+    {
+      symbol: 'IXIC',
+      name: 'NASDAQ',
+      price: 16982.11,
+      change: 0.58
+    }
+  ];
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-header">
-        <h1>Welcome back, {user?.firstName || 'Trader'}</h1>
-        <p className="text-muted">Here's your trading overview for today</p>
-      </div>
-      
-      <div className="row mb-4">
-        <div className="col-md-3">
-          <div className="card summary-card">
-            <div className="card-body">
-              <h5 className="card-title">Account Balance</h5>
-              <h2 className="card-value">${accountSummary?.balance.toFixed(2) || '0.00'}</h2>
-              <p className={`change-indicator ${accountSummary?.balanceChange >= 0 ? 'positive' : 'negative'}`}>
-                <i className={`fas fa-arrow-${accountSummary?.balanceChange >= 0 ? 'up' : 'down'} me-1`}></i>
-                {Math.abs(accountSummary?.balanceChange || 0).toFixed(2)}% today
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="col-md-3">
-          <div className="card summary-card">
-            <div className="card-body">
-              <h5 className="card-title">Portfolio Value</h5>
-              <h2 className="card-value">${accountSummary?.portfolioValue.toFixed(2) || '0.00'}</h2>
-              <p className={`change-indicator ${accountSummary?.portfolioChange >= 0 ? 'positive' : 'negative'}`}>
-                <i className={`fas fa-arrow-${accountSummary?.portfolioChange >= 0 ? 'up' : 'down'} me-1`}></i>
-                {Math.abs(accountSummary?.portfolioChange || 0).toFixed(2)}% today
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="col-md-3">
-          <div className="card summary-card">
-            <div className="card-body">
-              <h5 className="card-title">Open Positions</h5>
-              <h2 className="card-value">{accountSummary?.openPositions || 0}</h2>
-              <p className="text-muted">Across {accountSummary?.activeMarkets || 0} markets</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="col-md-3">
-          <div className="card summary-card">
-            <div className="card-body">
-              <h5 className="card-title">Today's P/L</h5>
-              <h2 className={`card-value ${accountSummary?.todayPL >= 0 ? 'text-success' : 'text-danger'}`}>
-                ${Math.abs(accountSummary?.todayPL || 0).toFixed(2)}
-                <small>{accountSummary?.todayPL >= 0 ? ' profit' : ' loss'}</small>
-              </h2>
-              <p className="text-muted">From {accountSummary?.todayTrades || 0} trades</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="row mb-4">
-        <div className="col-md-8">
-          <div className="card">
-            <div className="card-header d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Portfolio Performance</h5>
-              <div className="btn-group">
-                <button type="button" className="btn btn-sm btn-outline-secondary active">30d</button>
-                <button type="button" className="btn btn-sm btn-outline-secondary">90d</button>
-                <button type="button" className="btn btn-sm btn-outline-secondary">1y</button>
-                <button type="button" className="btn btn-sm btn-outline-secondary">All</button>
-              </div>
-            </div>
-            <div className="card-body">
-              <canvas id="portfolioChart" height="250"></canvas>
-            </div>
-          </div>
-        </div>
-        
-        <div className="col-md-4">
-          <div className="card">
-            <div className="card-header">
-              <h5 className="mb-0">Market Summary</h5>
-            </div>
-            <div className="card-body p-0">
-              <ul className="list-group list-group-flush">
-                {marketSummary.map((market, index) => (
-                  <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                      <span className="market-symbol">{market.symbol}</span>
-                      <small className="d-block text-muted">{market.name}</small>
-                    </div>
-                    <div className="text-end">
-                      <div className="market-price">${market.price.toFixed(2)}</div>
-                      <small className={`d-block ${market.change >= 0 ? 'text-success' : 'text-danger'}`}>
-                        <i className={`fas fa-arrow-${market.change >= 0 ? 'up' : 'down'} me-1`}></i>
-                        {Math.abs(market.change).toFixed(2)}%
-                      </small>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="text-center p-3">
-                <Link to="/market" className="btn btn-outline-primary btn-sm">View All Markets</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
+    <div className="container py-4">
       <div className="row">
-        <div className="col-md-12">
-          <div className="card">
-            <div className="card-header d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Recent Transactions</h5>
-              <Link to="/portfolio" className="btn btn-sm btn-outline-primary">View All</Link>
+        <div className="col-12">
+          <h2 className="mb-4">Welcome back, {user?.firstName || 'Trader'}!</h2>
+          
+          <div className="row g-4">
+            <div className="col-md-3">
+              <div className="dashboard-card">
+                <h5 className="card-title">Account Balance</h5>
+                <h3 className="text-primary">${accountSummary.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+                <p className="text-muted">Available for trading</p>
+              </div>
             </div>
-            <div className="card-body p-0">
-              <div className="table-responsive">
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Symbol</th>
-                      <th>Type</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Total</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentTrades.length > 0 ? (
-                      recentTrades.map((trade, index) => (
+            
+            <div className="col-md-3">
+              <div className="dashboard-card">
+                <h5 className="card-title">Portfolio Value</h5>
+                <h3 className="text-success">${accountSummary.portfolioValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+                <p className="text-muted">Current holdings</p>
+              </div>
+            </div>
+            
+            <div className="col-md-3">
+              <div className="dashboard-card">
+                <h5 className="card-title">Total Assets</h5>
+                <h3 className="text-primary">${accountSummary.totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+                <p className="text-muted">Balance + Portfolio</p>
+              </div>
+            </div>
+            
+            <div className="col-md-3">
+              <div className="dashboard-card">
+                <h5 className="card-title">Today's Change</h5>
+                <h3 className="text-success">+${accountSummary.dayChange.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+                <p className="text-success">+{accountSummary.dayChangePercent}%</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="row mt-4">
+            <div className="col-md-8">
+              <div className="dashboard-card">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <h4 className="card-title mb-0">Recent Transactions</h4>
+                  <Link to="/portfolio" className="btn btn-sm btn-outline-primary">View All</Link>
+                </div>
+                
+                <div className="table-responsive">
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recentTrades.map((trade, index) => (
                         <tr key={index}>
                           <td>{new Date(trade.date).toLocaleDateString()}</td>
                           <td>{trade.symbol}</td>
@@ -269,26 +134,58 @@ function Dashboard({ user }) {
                           </td>
                           <td>{trade.quantity}</td>
                           <td>${trade.price.toFixed(2)}</td>
-                          <td>${(trade.quantity * trade.price).toFixed(2)}</td>
-                          <td>
-                            <span className={`badge bg-${
-                              trade.status === 'COMPLETED' ? 'success' : 
-                              trade.status === 'PENDING' ? 'warning' : 'danger'
-                            }`}>
-                              {trade.status}
-                            </span>
-                          </td>
+                          <td>${trade.total.toFixed(2)}</td>
                         </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="7" className="text-center py-3">
-                          No recent transactions found
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-md-4">
+              <div className="dashboard-card">
+                <h4 className="card-title mb-4">Market Indices</h4>
+                
+                <div className="list-group">
+                  {marketIndices.map((index, i) => (
+                    <div key={i} className="list-group-item border-0 px-0">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 className="mb-0">{index.name}</h6>
+                          <small className="text-muted">{index.symbol}</small>
+                        </div>
+                        <div className="text-end">
+                          <div>{index.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+                          <small className={index.change >= 0 ? 'text-success' : 'text-danger'}>
+                            {index.change >= 0 ? '+' : ''}{index.change}%
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-3 text-center">
+                  <Link to="/market" className="btn btn-outline-primary btn-sm">
+                    View Market Data
+                  </Link>
+                </div>
+              </div>
+              
+              <div className="dashboard-card mt-4">
+                <h4 className="card-title mb-3">Quick Actions</h4>
+                
+                <div className="d-grid gap-2">
+                  <Link to="/trading" className="btn btn-primary">
+                    <i className="fas fa-exchange-alt me-2"></i>
+                    Trade Now
+                  </Link>
+                  <Link to="/portfolio" className="btn btn-outline-primary">
+                    <i className="fas fa-briefcase me-2"></i>
+                    Manage Portfolio
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

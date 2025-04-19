@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,40 +18,40 @@ function Footer() {
           <div className="col-md-2">
             <h6 className="mb-3">Platform</h6>
             <ul className="list-unstyled">
-              <li><a href="/dashboard" className="text-decoration-none text-muted">Dashboard</a></li>
-              <li><a href="/trading" className="text-decoration-none text-muted">Trading</a></li>
-              <li><a href="/portfolio" className="text-decoration-none text-muted">Portfolio</a></li>
-              <li><a href="/market" className="text-decoration-none text-muted">Market Data</a></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Dashboard</Link></li>
+              <li><Link to="/trading" className="text-decoration-none text-muted">Trading</Link></li>
+              <li><Link to="/portfolio" className="text-decoration-none text-muted">Portfolio</Link></li>
+              <li><Link to="/market" className="text-decoration-none text-muted">Market Data</Link></li>
             </ul>
           </div>
           
           <div className="col-md-2">
             <h6 className="mb-3">Resources</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-decoration-none text-muted">Learning Center</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">API Documentation</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Market News</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">FAQ</a></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Learning Center</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">API Documentation</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Market News</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">FAQ</Link></li>
             </ul>
           </div>
           
           <div className="col-md-2">
             <h6 className="mb-3">Company</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-decoration-none text-muted">About Us</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Careers</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Contact</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Blog</a></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">About Us</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Careers</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Contact</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Blog</Link></li>
             </ul>
           </div>
           
           <div className="col-md-2">
             <h6 className="mb-3">Legal</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-decoration-none text-muted">Terms of Service</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Privacy Policy</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Security</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Licenses</a></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Terms of Service</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Privacy Policy</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Security</Link></li>
+              <li><Link to="/dashboard" className="text-decoration-none text-muted">Licenses</Link></li>
             </ul>
           </div>
         </div>
@@ -65,22 +66,22 @@ function Footer() {
             <div className="col-md-6 text-md-end">
               <ul className="list-inline mb-0">
                 <li className="list-inline-item">
-                  <a href="#" className="text-muted text-decoration-none">
+                  <a href="#!" className="text-muted text-decoration-none">
                     <i className="fab fa-twitter"></i>
                   </a>
                 </li>
                 <li className="list-inline-item ms-3">
-                  <a href="#" className="text-muted text-decoration-none">
+                  <a href="#!" className="text-muted text-decoration-none">
                     <i className="fab fa-facebook"></i>
                   </a>
                 </li>
                 <li className="list-inline-item ms-3">
-                  <a href="#" className="text-muted text-decoration-none">
+                  <a href="#!" className="text-muted text-decoration-none">
                     <i className="fab fa-linkedin"></i>
                   </a>
                 </li>
                 <li className="list-inline-item ms-3">
-                  <a href="#" className="text-muted text-decoration-none">
+                  <a href="#!" className="text-muted text-decoration-none">
                     <i className="fab fa-github"></i>
                   </a>
                 </li>

@@ -1,24 +1,23 @@
-// src/lib/protected-route.js
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuth();
-
+  const location = useLocation();
+  
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+      <div className="loading-container">
+        <div className="spinner"></div>
       </div>
     );
   }
-
+  
   if (!user) {
-    return <Navigate to="/auth" />;
+    // Redirect to login page but remember where they were trying to go
+    return <Navigate to="/auth" state={{ from: location.pathname }} replace />;
   }
-
+  
   return children;
 }

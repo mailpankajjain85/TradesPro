@@ -1,23 +1,13 @@
-import { createContext, ReactNode, useContext } from 'react';
-import {
-  useQuery,
-  useMutation,
-} from '@tanstack/react-query';
+import { createContext, useContext } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { getQueryFn, apiRequest, queryClient } from '../lib/queryClient';
 
-// This will be a simple placeholder for the User type
-// In a real app, this would be imported from a shared schema
-const dummyUserValidation = (user) => {
-  // Just make sure these properties exist
-  if (user && user.username && typeof user.username === 'string') {
-    return true;
-  }
-  return false;
-};
-
+// Authentication context
 const AuthContext = createContext(null);
 
+// Authentication provider component
 export function AuthProvider({ children }) {
+  // Get current user session
   const {
     data: user,
     error,
@@ -27,13 +17,10 @@ export function AuthProvider({ children }) {
     queryFn: getQueryFn({ on401: 'returnNull' }),
   });
 
+  // Login mutation
   const loginMutation = useMutation({
     mutationFn: async (credentials) => {
       const res = await apiRequest('POST', '/api/login', credentials);
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Login failed');
-      }
       return await res.json();
     },
     onSuccess: (userData) => {
@@ -41,13 +28,10 @@ export function AuthProvider({ children }) {
     },
   });
 
+  // Register mutation
   const registerMutation = useMutation({
     mutationFn: async (userData) => {
       const res = await apiRequest('POST', '/api/register', userData);
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Registration failed');
-      }
       return await res.json();
     },
     onSuccess: (userData) => {
@@ -55,34 +39,29 @@ export function AuthProvider({ children }) {
     },
   });
 
+  // Logout mutation
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest('POST', '/api/logout');
-      if (!res.ok) {
-        throw new Error('Logout failed');
-      }
+      await apiRequest('POST', '/api/logout');
     },
     onSuccess: () => {
       queryClient.setQueryData(['/api/user'], null);
     },
   });
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user: user ?? null,
-        isLoading,
-        error,
-        loginMutation,
-        logoutMutation,
-        registerMutation,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    isLoading,
+    error,
+    loginMutation,
+    registerMutation,
+    logoutMutation,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// Hook to use the auth context
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

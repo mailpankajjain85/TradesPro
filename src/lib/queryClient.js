@@ -1,4 +1,3 @@
-// src/lib/queryClient.js
 import { QueryClient } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient({
@@ -6,7 +5,6 @@ export const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
@@ -14,39 +12,49 @@ export const queryClient = new QueryClient({
 export const getQueryFn = ({ on401 = 'throw' } = {}) => {
   return async ({ queryKey }) => {
     const [endpoint] = queryKey;
-    const options = {};
-
-    const res = await apiRequest('GET', endpoint, null, options);
     
-    if (res.status === 401) {
-      if (on401 === 'returnNull') {
+    try {
+      const response = await fetch(endpoint, {
+        credentials: 'include', // Include cookies in the request
+      });
+      
+      if (response.status === 401 && on401 === 'returnNull') {
         return null;
       }
-      throw new Error('Unauthorized');
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error(`Error fetching ${endpoint}:`, error);
+      throw error;
     }
-    
-    if (!res.ok) {
-      throw new Error(`API Error: ${res.status}`);
-    }
-    
-    return res.json();
   };
 };
 
 export const apiRequest = async (method, url, data = null, options = {}) => {
-  const config = {
+  const fetchOptions = {
     method,
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    credentials: 'include',
-    ...options,
+    credentials: 'include', // Include cookies in the request
   };
-
-  if (data && method !== 'GET') {
-    config.body = JSON.stringify(data);
+  
+  if (data) {
+    fetchOptions.body = JSON.stringify(data);
   }
-
-  return await fetch(url, config);
+  
+  const response = await fetch(url, fetchOptions);
+  
+  if (!response.ok && !options.suppressErrors) {
+    const errorData = await response.json().catch(() => ({}));
+    const errorMessage = errorData.message || `HTTP error ${response.status}`;
+    throw new Error(errorMessage);
+  }
+  
+  return response;
 };

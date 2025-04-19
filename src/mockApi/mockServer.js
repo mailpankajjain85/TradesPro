@@ -285,12 +285,6 @@ export async function startMockServer() {
       // Start the worker with a more permissive configuration
       await worker.start({
         onUnhandledRequest: 'bypass', // Don't warn about unhandled requests
-        serviceWorker: {
-          url: `${process.env.PUBLIC_URL}/mockServiceWorker.js`,
-          options: {
-            scope: '/'
-          }
-        }
       });
       console.log('Mock API server running');
     } catch (error) {
