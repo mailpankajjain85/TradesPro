@@ -12,7 +12,7 @@ const LoginPage = ({ setLoggedInUser }) => {
 
   const handleLogin = async () => {
     try {
-      const orgShortCode = "Org01"; // Hardcoded for now
+      const orgShortCode = "org01"; // Hardcoded for now
 
       const response = await api.post("/auth/login", {
         userId: username,
