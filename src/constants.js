@@ -1,0 +1,1 @@
+export const API_BASE_URL = "https://ipoappapi20250425171331-a2b2hwcyb2g5hzf4.canadacentral-01.azurewebsites.net/api";

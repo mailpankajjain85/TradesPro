@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Container, TextField, Button, Typography, Paper, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import api from "../api"; // Import the configured axios instance
 
 const LoginPage = ({ setLoggedInUser }) => {
   const [username, setUsername] = useState("");
@@ -8,19 +10,32 @@ const LoginPage = ({ setLoggedInUser }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Hardcoded users, passwords, and roles
-    const users = {
-      bljain: { password: "bljain", role: "admin" },
-      pankaj: { password: "pankaj", role: "staff" },
-      tanish: { password: "tanish", role: "user" },
-    };
+  const handleLogin = async () => {
+    try {
+      const orgShortCode = "Org01"; // Hardcoded for now
 
-    if (users[username] && users[username].password === password) {
-      setLoggedInUser({ username, role: users[username].role }); // Set the logged-in user with role
-      navigate("/"); // Redirect to the home page
-    } else {
-      setError("Invalid username or password");
+      const response = await api.post("/auth/login", {
+        userId: username,
+        password,
+        orgShortCode,
+      });
+
+      const { token } = response.data;
+
+      // Save the token in localStorage
+      localStorage.setItem("token", token);
+
+      // Decode the token to extract user details
+      const decodedToken = jwtDecode(token);
+      const { username: decodedUsername, role } = decodedToken;
+
+      // Set the logged-in user with details from the token
+      setLoggedInUser({ username: decodedUsername, role });
+
+      // Redirect to the home page
+      navigate("/");
+    } catch (err) {
+      setError("Invalid username, password, or organization");
     }
   };
 
