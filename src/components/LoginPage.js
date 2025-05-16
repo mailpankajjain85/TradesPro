@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, TextField, Button, Typography, Paper, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import api from "../api"; // Import the configured axios instance
 
 const LoginPage = ({ setLoggedInUser }) => {
