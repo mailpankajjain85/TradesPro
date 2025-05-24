@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 18 # Use a stable Node.js version
 
       - name: Install dependencies
         run: npm install
@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: react-app
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          path: ./build # Ensure this matches the actual build folder
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: react-app
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          path: ./build # Ensure this matches the artifact path
 
       - name: Azure Login
         uses: azure/login@v2
@@ -54,4 +54,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: ./build # Ensure this matches the downloaded artifact path
