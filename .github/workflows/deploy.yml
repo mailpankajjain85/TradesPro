@@ -1,31 +1,42 @@
-name: Deploy to GitHub Pages
+name: Deploy React App to Azure
 
 on:
   push:
-    branches:
-      - main # Change this to your default branch
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: TradesPro   # Replace with your Azure app name
+  AZURE_WEBAPP_PACKAGE_PATH: 'build' # React build output folder
+  NODE_VERSION: '18.x'               # Node.js version
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    environment: test
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the app
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build React app
+      run: npm run build
+      
+    - name: Zip the build files
+      run: zip -r build.zip ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS}}
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: build.zip
