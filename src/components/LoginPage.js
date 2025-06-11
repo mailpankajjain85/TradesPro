@@ -20,18 +20,16 @@ const LoginPage = ({ setLoggedInUser }) => {
       let userPassword = password;
       if (isDemoMode) {
         if (userId === "pankaj" || userPassword === "pankaj") {
-          {
 
-            // Optional: Fill the form fields with demo credentials for visibility
-            setUsername(userId);
-            setPassword(userPassword);
-            // Set the logged-in user with details from the token
-            setLoggedInUser({ username: decodedUsername, role });
+          // Optional: Fill the form fields with demo credentials for visibility
+          setUsername(userId);
+          setPassword(userPassword);
+          // Set the logged-in user with details from the token
+          setLoggedInUser({ username: userId, role: "admin" });
 
-            // Redirect to the home page
-            navigate("/");
-            return;
-          }
+          // Redirect to the home page
+          navigate("/");
+          return;
         }
       }
 
