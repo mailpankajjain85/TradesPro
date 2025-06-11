@@ -13,6 +13,23 @@ const LoginPage = ({ setLoggedInUser }) => {
   const handleLogin = async () => {
     try {
       const orgShortCode = "org01"; // Hardcoded for now
+      // Check for demo mode in URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const isDemoMode = urlParams.get('demo') === 'true';
+      if (isDemoMode) {
+        userId = "demoUser";
+        userPassword = "demoPassword";
+
+        // Optional: Fill the form fields with demo credentials for visibility
+        setUsername(userId);
+        setPassword(userPassword);
+        // Set the logged-in user with details from the token
+        setLoggedInUser({ username: decodedUsername, role });
+
+        // Redirect to the home page
+        navigate("/");
+        return;
+      }
 
       const response = await api.post("/auth/login", {
         userId: username,

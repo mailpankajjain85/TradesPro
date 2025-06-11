@@ -18,7 +18,8 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.15.1",
     "web-vitals": "^4.2.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "zip": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
