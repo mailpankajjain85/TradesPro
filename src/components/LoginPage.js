@@ -16,19 +16,23 @@ const LoginPage = ({ setLoggedInUser }) => {
       // Check for demo mode in URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       const isDemoMode = urlParams.get('demo') === 'true';
+      let userId = username;
+      let userPassword = password;
       if (isDemoMode) {
-        userId = "demoUser";
-        userPassword = "demoPassword";
+        if (userId === "pankaj" || userPassword === "pankaj") {
+          {
 
-        // Optional: Fill the form fields with demo credentials for visibility
-        setUsername(userId);
-        setPassword(userPassword);
-        // Set the logged-in user with details from the token
-        setLoggedInUser({ username: decodedUsername, role });
+            // Optional: Fill the form fields with demo credentials for visibility
+            setUsername(userId);
+            setPassword(userPassword);
+            // Set the logged-in user with details from the token
+            setLoggedInUser({ username: decodedUsername, role });
 
-        // Redirect to the home page
-        navigate("/");
-        return;
+            // Redirect to the home page
+            navigate("/");
+            return;
+          }
+        }
       }
 
       const response = await api.post("/auth/login", {
